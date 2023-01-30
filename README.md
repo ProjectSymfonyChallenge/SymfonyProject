@@ -33,6 +33,26 @@ Voir les routes actives
 
 `docker compose exec php bin/console make:crud`
 
+## Organisation et bonnes pratiques à suivre :
+
+GitMoji
+
+✨ Finish a feature (sparkles)
+
+🔨 Add,update, continue feature or task (hammer)
+
+:lipstick: Add or update the UI and style files.
+
+🩹 Retouch an issue(s) already send (adhesive_bandage)
+
+🐛 Fix a bug (bug)
+
+🚑 Fix critical bug (ambulance)
+
+Controller doit avoir le minimun de code et doit appeler des service -> coder en fonctionel
+
+Si on as besoin d'instancier une class interface repository...  plusieurs fois il faut l'instancier dans le construct
+
 ## Gestion des routes
 [https://symfony.com/doc/current/routing.html](https://symfony.com/doc/current/routing.html)
 
