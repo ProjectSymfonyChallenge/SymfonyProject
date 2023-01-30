@@ -71,6 +71,7 @@ Encore
     // .enableTypeScriptLoader()
 
     // uncomment if you use React
+
     //.enableReactPreset()
 
     // uncomment to get integrity="..." attributes on your script & link tags
