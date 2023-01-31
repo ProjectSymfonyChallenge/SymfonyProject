@@ -1,0 +1,280 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\HikeRepository;
+use Gedmo\Mapping\Annotation\Slug;
+use App\Entity\Traits\TimestampableTrait;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+#[ORM\Entity(repositoryClass: HikeRepository::class)]
+class Hike
+{
+    use TimestampableTrait;
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'hikes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Club $club = null;
+
+    #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Evaluation::class)]
+    private Collection $evaluations;
+
+    #[ORM\Column]
+    private ?float $distance = null;
+
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $duration = null;
+
+    #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Picture::class)]
+    private Collection $pictures;
+
+    #[ORM\Column(length: 255)]
+    private ?string $effort = null;
+
+    #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Booking::class)]
+    private Collection $bookings;
+
+    #[ORM\OneToOne(mappedBy: 'hike', cascade: ['persist', 'remove'])]
+    private ?Comment $comment = null;
+
+    #[ORM\Column]
+    private ?int $max_users = null;
+
+    #[ORM\Column(length: 255)]
+    #[Slug(fields: ['name'])]
+    private ?string $slug = null;
+
+    public function __construct()
+    {
+        $this->evaluations = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->club;
+    }
+
+    public function setClub(?Club $club): self
+    {
+        $this->club = $club;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Evaluation>
+     */
+    public function getEvaluations(): Collection
+    {
+        return $this->evaluations;
+    }
+
+    public function addEvaluation(Evaluation $evaluation): self
+    {
+        if (!$this->evaluations->contains($evaluation)) {
+            $this->evaluations->add($evaluation);
+            $evaluation->setHike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvaluation(Evaluation $evaluation): self
+    {
+        if ($this->evaluations->removeElement($evaluation)) {
+            // set the owning side to null (unless already changed)
+            if ($evaluation->getHike() === $this) {
+                $evaluation->setHike(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDistance(): ?float
+    {
+        return $this->distance;
+    }
+
+    public function setDistance(float $distance): self
+    {
+        $this->distance = $distance;
+
+        return $this;
+    }
+
+    public function getDuration(): ?\DateTimeInterface
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(\DateTimeInterface $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): self
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setHike($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getHike() === $this) {
+                $picture->setHike(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getEffort(): ?string
+    {
+        return $this->effort;
+    }
+
+    public function setEffort(string $effort): self
+    {
+        $this->effort = $effort;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): self
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setHike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): self
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getHike() === $this) {
+                $booking->setHike(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getComment(): ?Comment
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?Comment $comment): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($comment === null && $this->comment !== null) {
+            $this->comment->setHike(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($comment !== null && $comment->getHike() !== $this) {
+            $comment->setHike($this);
+        }
+
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getMaxUsers(): ?int
+    {
+        return $this->max_users;
+    }
+
+    public function setMaxUsers(int $max_users): self
+    {
+        $this->max_users = $max_users;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+}
