@@ -48,9 +48,6 @@ class Hike
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Booking::class)]
     private Collection $bookings;
 
-    #[ORM\OneToOne(mappedBy: 'hike', cascade: ['persist', 'remove'])]
-    private ?Comment $comment = null;
-
     #[ORM\Column]
     private ?int $max_users = null;
 
@@ -58,11 +55,15 @@ class Hike
     #[Slug(fields: ['name'])]
     private ?string $slug = null;
 
+    #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Comment::class)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->evaluations = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,28 +233,6 @@ class Hike
         return $this;
     }
 
-    public function getComment(): ?Comment
-    {
-        return $this->comment;
-    }
-
-    public function setComment(?Comment $comment): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($comment === null && $this->comment !== null) {
-            $this->comment->setHike(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($comment !== null && $comment->getHike() !== $this) {
-            $comment->setHike($this);
-        }
-
-        $this->comment = $comment;
-
-        return $this;
-    }
-
     public function getMaxUsers(): ?int
     {
         return $this->max_users;
@@ -274,6 +253,36 @@ class Hike
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setHike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getHike() === $this) {
+                $comment->setHike(null);
+            }
+        }
 
         return $this;
     }
