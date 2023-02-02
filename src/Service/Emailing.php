@@ -10,7 +10,7 @@ class Emailing
 {
     public function sendEmailing(array $emailUser, int $idTemplate, $token)
     {
-        $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', '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');
+        $config = Configuration::getDefaultConfiguration()->setApiKey('api-key', $_ENV['MAILER_DSN']);
 
         $apiInstance = new TransactionalEmailsApi(
             new Client(),
