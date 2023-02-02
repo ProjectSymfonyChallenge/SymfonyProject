@@ -15,6 +15,13 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email')
+            ->add('firstname', null, [
+                'required' => false,
+            ])
+            ->add('lastname', null, [
+                'required' => false,
+            ])
+            ->add('username')
             ->add('roles', ChoiceType::class, [
                 'required' => true,
                 'multiple' => false,

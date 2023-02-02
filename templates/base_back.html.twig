@@ -19,6 +19,8 @@
                 <li><a href="{{ path('front_default_index') }}">Accueil</a></li>
             </ul>
         </nav>
-        {% block body %}{% endblock %}
+        {% embed "back/_embed/navbar.html.twig" %}{% endembed %}
+        {% block body %}
+        {% endblock %}
     </body>
 </html>
