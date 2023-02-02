@@ -1,0 +1,29 @@
+.custom-input {
+  padding: 0 2rem;
+
+  label {
+    color: $green-2;
+  }
+
+  input {
+
+    color: $grey;
+
+    &:hover {
+      border-color: $green-3;
+      transition: border-color 0.4s ease-in-out;
+    }
+
+    &:focus {
+      border-color: $green-3;
+      color: $grey;
+    }
+
+    .form-check-input:checked {
+      background-color: $green-2 !important;
+      border-color: $green-2 !important;
+    }
+
+  }
+
+}

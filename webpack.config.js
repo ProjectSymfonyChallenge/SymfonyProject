@@ -16,12 +16,14 @@ Encore
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
+
     /*
      * ENTRY CONFIG
      *
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
+    .cleanupOutputBeforeBuild()
     .addEntry('app', './assets/app.js')
     .addStyleEntry('login', './assets/styles/pages/_login.scss')
 
@@ -60,6 +62,13 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
     //TODO delete ? .enablePostCssLoader()
+
+    .copyFiles(
+        {
+            from: './assets/images',
+            to: 'images/[path][name].[ext]',
+        }
+    )
 
     // VueJs
     .enableVueLoader(() => {}, { 

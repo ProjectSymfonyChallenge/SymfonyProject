@@ -1,12 +1,10 @@
 @import "./node_modules/bootstrap/scss/bootstrap";
 
-@import "abstracts/_mixins";
-@import "abstracts/_variables";
-
 @import "base/_base";
 
-@import "components/_buttons";
-@import "components/_inputs";
+@import "components/_button";
+@import "components/_card";
+@import "components/_input";
 
 @import "layout/_footer";
 @import "layout/_header";
