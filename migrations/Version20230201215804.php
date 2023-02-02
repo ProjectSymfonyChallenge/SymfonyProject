@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230131173722 extends AbstractMigration
+final class Version20230201215804 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,15 +20,15 @@ final class Version20230131173722 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE club ADD slug VARCHAR(255) NOT NULL');
-        $this->addSql('ALTER TABLE hike ADD slug VARCHAR(255) NOT NULL');
+        $this->addSql('DROP INDEX uniq_9474526c71d4de21');
+        $this->addSql('CREATE INDEX IDX_9474526C71D4DE21 ON comment (hike_id)');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('ALTER TABLE club DROP slug');
-        $this->addSql('ALTER TABLE hike DROP slug');
+        $this->addSql('DROP INDEX IDX_9474526C71D4DE21');
+        $this->addSql('CREATE UNIQUE INDEX uniq_9474526c71d4de21 ON comment (hike_id)');
     }
 }

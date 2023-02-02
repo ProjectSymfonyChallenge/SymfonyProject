@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\BookingRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
@@ -24,6 +25,9 @@ class Booking
 
     #[ORM\OneToOne(inversedBy: 'booking', cascade: ['persist', 'remove'])]
     private ?Payment $payment = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $hike_date = null;
 
     public function getId(): ?int
     {
@@ -62,6 +66,18 @@ class Booking
     public function setPayment(?Payment $payment): self
     {
         $this->payment = $payment;
+
+        return $this;
+    }
+
+    public function getHikeDate(): ?\DateTimeInterface
+    {
+        return $this->hike_date;
+    }
+
+    public function setHikeDate(\DateTimeInterface $hike_date): self
+    {
+        $this->hike_date = $hike_date;
 
         return $this;
     }
