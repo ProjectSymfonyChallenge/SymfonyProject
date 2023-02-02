@@ -15,4 +15,5 @@ class DefaultController extends AbstractController
     {
         return $this->render('front/default/index.html.twig');
     }
+
 }

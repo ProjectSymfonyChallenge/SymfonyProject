@@ -1,0 +1,43 @@
+{% extends 'base_front.html.twig' %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block title %}Accueil toto{% endblock %}
+
+{% block body %}
+    <div class="card flex justify-center">
+        <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
+            <h1 class="flex justify-center">{{ "form.title.register" | trans() }}</h1>
+                {{ form_start(form, {attr:{"id":"form-register", "methode":"post", "class": "form flex flex-col"}}) }}
+                    {{ form_row(form._token) }}
+                    <div class="form-group flex flex-col ">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email) }}
+                    </div>
+                    <div class="form-group flex flex-col ">
+                        {{ form_label(form.username) }}
+                        {{ form_widget(form.username) }}
+                    </div>
+                    <div class="form-group flex flex-col ">
+                        {{ form_label(form.password.first) }}
+                        {{ form_widget(form.password.first) }}
+                    </div>
+                    <div class="form-group flex flex-col ">
+                        {{ form_label(form.password.second) }}
+                        {{ form_widget(form.password.second) }}
+                    </div>
+                    <div class="form-group flex flex-row justify-between">
+                        <a href="#">{{ "form.link.earldy_account" | trans() }}</a>
+                        <button>{{ "form.btn.register" | trans()}}</button>
+                    </div>
+
+                {{ form_end(form) }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+    </script>
+{% endblock %}
