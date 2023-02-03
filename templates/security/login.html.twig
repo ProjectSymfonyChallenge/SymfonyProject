@@ -15,6 +15,11 @@
 {% endblock %}
 
 {% block body %}
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
 	<div class="container">
 		<div class="row">
 			<div class="card">
@@ -23,7 +28,11 @@
 				</div>
 				<div class="card-body">
 					<form method="post">
-
+            {% if error is defined  %}
+              {% if error and error is defined  %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+              {% endif %}
+            {% endif %}
 						<div class="mb-3 custom-input">
 							<label for="inputEmail" class="form-label">Email :</label>
 							<input id="inputEmail"
@@ -35,7 +44,6 @@
 								   required
 								   autofocus>
 						</div>
-
 						<div class="mb-3 custom-input">
 							<label for="inputPassword" class="form-label">Mot de passe :</label>
 							<input id="inputPassword"

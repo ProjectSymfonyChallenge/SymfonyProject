@@ -23,8 +23,7 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $body = null;
 
-
-    #[ORM\OneToOne(inversedBy: 'comment', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(inversedBy: 'comments')]
     private ?Hike $hike = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]

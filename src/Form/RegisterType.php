@@ -25,7 +25,6 @@ class RegisterType extends AbstractType
                ],
                'mapped' => true,
                'required' => true,
-
            ])
             ->add('username', TextType::class,[
                 'label' => 'form.label.username',
@@ -33,6 +32,7 @@ class RegisterType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                 ],
+
                 'mapped' => true,
                 'required' => true,
             ])

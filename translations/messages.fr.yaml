@@ -10,3 +10,8 @@ form.help.username: 'Saisissez un pseudo'
 form.help.password: 'Saisissez un mot de passe'
 form.help.cpassword: 'Resaisissez le mot de passe'
 form.link.already_account: 'Déjà un compte ?'
+form.succes: 'Votre compte a été créé avec succès, vous avez besoin d''activer votre compte grâce à l''email que nous venons de vous envoyer!'
+manager:
+  navbar:
+    home: 'Accueil'
+    logout: 'Déconnexion'
