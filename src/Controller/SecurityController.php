@@ -73,7 +73,6 @@ class SecurityController extends AbstractController
                 $user->getPassword()
             );
 
-            //dd($hashedPassword, $request, $form);
             $user->setPassword($hashedPassword);
             $bytes = bin2hex(random_bytes(32));
             $user->setToken($bytes);
