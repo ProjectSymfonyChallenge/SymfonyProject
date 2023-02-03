@@ -26,6 +26,7 @@ Encore
     .cleanupOutputBeforeBuild()
     .addEntry('app', './assets/app.js')
     .addStyleEntry('login', './assets/styles/pages/_login.scss')
+    .addStyleEntry('register', './assets/styles/pages/_register.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

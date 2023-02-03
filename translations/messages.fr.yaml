@@ -1,6 +1,6 @@
 test: 'Salut'
 form.title.register: 'Inscription'
-form.btn.register: 'Créer mon compte'
+form.btn.register: "S'inscrire"
 form.label.email: 'Email :'
 form.label.username: 'Pseudo :'
 form.label.password: 'Mot de passe :'
@@ -9,4 +9,4 @@ form.help.email: 'Saisissez un email'
 form.help.username: 'Saisissez un pseudo'
 form.help.password: 'Saisissez un mot de passe'
 form.help.cpassword: 'Resaisissez le mot de passe'
-form.link.earldy_account: 'Déjà un compte ?'
+form.link.already_account: 'Déjà un compte ?'

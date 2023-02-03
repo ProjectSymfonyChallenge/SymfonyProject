@@ -6,36 +6,48 @@
 {% block title %}Accueil toto{% endblock %}
 
 {% block body %}
-    <div class="card flex justify-center">
-        <div class="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 ">
-            <h1 class="flex justify-center">{{ "form.title.register" | trans() }}</h1>
-                {{ form_start(form, {attr:{"id":"form-register", "methode":"post", "class": "form flex flex-col"}}) }}
-                    {{ form_row(form._token) }}
-                    <div class="form-group flex flex-col ">
-                        {{ form_label(form.email) }}
-                        {{ form_widget(form.email) }}
-                    </div>
-                    <div class="form-group flex flex-col ">
-                        {{ form_label(form.username) }}
-                        {{ form_widget(form.username) }}
-                    </div>
-                    <div class="form-group flex flex-col ">
-                        {{ form_label(form.password.first) }}
-                        {{ form_widget(form.password.first) }}
-                    </div>
-                    <div class="form-group flex flex-col ">
-                        {{ form_label(form.password.second) }}
-                        {{ form_widget(form.password.second) }}
-                    </div>
-                    <div class="form-group flex flex-row justify-between">
-                        <a href="#">{{ "form.link.earldy_account" | trans() }}</a>
-                        <button>{{ "form.btn.register" | trans()}}</button>
-                    </div>
+    <div class="container">
+		<div class="row">
+			<div class="card">
+                <div class="card-header">
+                    <h1>{{ "form.title.register" | trans() }}</h1>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form, {attr:{"id":"form-register", "methode":"post" }}) }}
+                        {{ form_row(form._token) }}
+                        <div class="mb-3 custom-input">
+                            {{ form_label(form.email) }}
+                            {{ form_widget(form.email) }}
+                        </div>
+                        <div class="mb-3 custom-input">
+                            {{ form_label(form.username) }}
+                            {{ form_widget(form.username) }}
+                        </div>
+                        <div class="mb-3 custom-input">
+                            {{ form_label(form.password.first) }}
+                            {{ form_widget(form.password.first) }}
+                        </div>
+                        <div class="mb-3 custom-input">
+                            {{ form_label(form.password.second) }}
+                            {{ form_widget(form.password.second) }}
+                        </div>
 
-                {{ form_end(form) }}
-            </h1>
+                        <div class="d-flex justify-content-between custom-input">
+                            <div class="mb-3">
+                                <a href="#">{{ "form.link.already_account" | trans() }}</a>
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-light-green" type="submit">
+                                    {{ "form.btn.register" | trans()}}
+                                </button>
+                            </div>
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+			</div>
         </div>
     </div>
+    
 {% endblock %}
 {% block javascripts %}
     <script>

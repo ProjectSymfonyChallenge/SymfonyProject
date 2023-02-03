@@ -10,11 +10,11 @@
   }
 
   @media (max-height: 768px) {
-      margin-top: 2rem;
+    margin-top: 2rem;
   }
 
   @media (max-height: 480px) {
-      margin-top: 1rem;
+    margin-top: 1rem;
   }
 }
 
@@ -32,7 +32,7 @@
 
 .d-flex {
   align-items: center;
-  
+
   @media (max-width: 990px) {
     flex-direction: column;
   }

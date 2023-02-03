@@ -1,9 +1,5 @@
 {% extends 'base_front.html.twig' %}
 
-{% block title %}
-	Log in!
-{% endblock %}
-
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('login') }}
@@ -12,6 +8,10 @@
 {% block javascripts %}
 	{{ parent() }}
 	{{ encore_entry_script_tags('login') }}
+{% endblock %}
+
+{% block title %}
+	Connexion
 {% endblock %}
 
 {% block body %}
@@ -59,7 +59,7 @@
 							</div>
 							<div class="mb-3">
 								<button class="btn btn-light-green" type="submit">
-									Me connecter
+									Se connecter
 								</button>
 							</div>
 						</div>
