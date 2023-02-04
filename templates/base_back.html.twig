@@ -14,11 +14,6 @@
         {% endblock %}
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a href="{{ path('front_default_index') }}">Accueil</a></li>
-            </ul>
-        </nav>
         {% embed "back/_embed/navbar.html.twig" %}{% endembed %}
         {% block body %}
         {% endblock %}

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegisterType;
-use App\Form\UserType;
 use App\Repository\LevelRepository;
 use App\Repository\UserRepository;
 use App\Service\Emailing;
@@ -73,7 +72,6 @@ class SecurityController extends AbstractController
                 $user->getPassword()
             );
 
-            //dd($hashedPassword, $request, $form);
             $user->setPassword($hashedPassword);
             $bytes = bin2hex(random_bytes(32));
             $user->setToken($bytes);
@@ -101,7 +99,6 @@ class SecurityController extends AbstractController
     #[Route('/validate', name: 'app_validate', methods: ['GET'])]
     public function validate(Request $request): Response
     {
-        //dd($request->query->get('token'));
         $tokenUser = $request->query->get('token');
         $emailUser = $request->query->get('email');
 

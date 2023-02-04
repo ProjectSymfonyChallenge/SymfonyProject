@@ -18,9 +18,11 @@ class Booking
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'bookings')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Hike $hike = null;
 
     #[ORM\OneToOne(inversedBy: 'booking', cascade: ['persist', 'remove'])]
