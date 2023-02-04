@@ -58,6 +58,9 @@ class Hike
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'hike')]
+    private ?Locality $locality = null;
+
     public function __construct()
     {
         $this->evaluations = new ArrayCollection();
@@ -283,6 +286,18 @@ class Hike
                 $comment->setHike(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocality(): ?Locality
+    {
+        return $this->locality;
+    }
+
+    public function setLocality(?Locality $locality): self
+    {
+        $this->locality = $locality;
 
         return $this;
     }
