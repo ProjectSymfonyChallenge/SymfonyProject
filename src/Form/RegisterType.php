@@ -20,24 +20,38 @@ class RegisterType extends AbstractType
            ->add('email', TextType::class, [
                'label' => 'form.label.email',
                'help' => 'form.help.email',
-               'attr' => [],
+               'attr' => [
+                   'class' => 'form-control',
+               ],
                'mapped' => true,
                'required' => true,
            ])
             ->add('username', TextType::class,[
                 'label' => 'form.label.username',
                 'help' => 'form.help.username',
-                'attr' => [],
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+
                 'mapped' => true,
                 'required' => true,
             ])
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'form.label.password'],
-                'second_options' => ['label' => 'form.label.cpassword'],
+                'first_options'  => [
+                    'label' => 'form.label.password',
+                    'attr' => [
+                        'class' => 'form-control',
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'form.label.cpassword',
+                    'attr' => [
+                        'class' => 'form-control',
+                    ],
+                ],
                 'help' => 'form.help.password',
                 'form_attr' => true,
-                'attr' => ['class' => 'flex flex-col'],
                 'mapped' => true,
                 'required' => true,
             ])

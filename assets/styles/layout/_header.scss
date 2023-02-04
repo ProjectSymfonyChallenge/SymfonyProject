@@ -1,0 +1,27 @@
+.navbar {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: $box-shadow-bottom;
+  background-color: white;
+}
+
+#navbarNav {
+  justify-content: flex-end;
+
+    .nav-link {
+        color: $green-2;
+
+        &:hover {
+          color: $green-3;
+        }
+    }
+
+    .navbar-toggler {
+        border: none !important;
+        color: $green-2;
+
+        &:hover {
+          color: $green-3;
+        }
+    }
+}
