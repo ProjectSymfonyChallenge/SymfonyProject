@@ -1,7 +1,5 @@
 <ul id='back_navbar'>
-  <li><a class="active" href="/admin/">Home</a></li>
-  <li><a href="/admin/user">Gestion des utilisateurs</a></li>
-  <li><a href="#contact">Contact</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href="/logout">Déconnexion</a></li>
+  <li><a class="active" href="{{ path('back_default_index') }}">{{ 'navbar.home'|trans }}</a></li>
+  <li><a href="{{ path('back_user_index') }}">{{ 'navbar.user'|trans }}</a></li>
+  <li><a href="{{ path('app_logout') }}">{{ 'navbar.logout'|trans }}</a></li>
 </ul>

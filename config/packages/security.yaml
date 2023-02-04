@@ -39,7 +39,7 @@ security:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/validate, roles: PUBLIC_ACCESS }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
         ROLE_GUIDE: ROLE_USER

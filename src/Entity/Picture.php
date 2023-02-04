@@ -29,6 +29,7 @@ class Picture
     private ?Badge $badge = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]

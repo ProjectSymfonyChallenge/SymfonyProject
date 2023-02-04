@@ -24,9 +24,11 @@ class Comment
     private ?string $body = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Hike $hike = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?User $user = null;
 
     public function getId(): ?int

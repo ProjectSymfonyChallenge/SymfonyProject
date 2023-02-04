@@ -27,7 +27,7 @@ class Hike
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'hikes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Club $club = null;
 
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Evaluation::class)]
