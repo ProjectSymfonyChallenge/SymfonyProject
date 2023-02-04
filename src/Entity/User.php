@@ -80,6 +80,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Slug(fields: ['username'])]
     private ?string $slug = null;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    private ?Locality $locality = null;
+
     public function __construct()
     {
         $this->badges = new ArrayCollection();
@@ -426,6 +429,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getLocality(): ?Locality
+    {
+        return $this->locality;
+    }
+
+    public function setLocality(?Locality $locality): self
+    {
+        $this->locality = $locality;
 
         return $this;
     }

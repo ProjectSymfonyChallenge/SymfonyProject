@@ -109,7 +109,7 @@ class BadgeFixtures extends Fixture
 
         $manager->persist($object);
 
-        $this->addReference('badge1000Km', $object);
+        $this->addReference('badge2000Km', $object);
 
         $object = (new Badge())
             ->setName('Jambes en feu')
