@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<title>Hike</title>
+
+{% block body %}
+    <h1>Hike</h1>
+    {% if hike.evaluations|length > 0 %}
+        {% set avgEffort = 0 %}
+        {% for evaluation in hike.evaluations %}
+            {% set avgEffort = avgEffort + evaluation.effort %}
+        {% endfor %}
+        {% set avgEffort = avgEffort / hike.evaluations|length %}
+        {# Avg beauty #}
+        {% set avgBeauty = 0 %}
+        {% for evaluation in hike.evaluations %}
+            {% set avgBeauty = avgBeauty + evaluation.beauty %}
+        {% endfor %}
+        {% set avgBeauty = avgBeauty / hike.evaluations|length %}
+    {% endif %}
+    {# Average duration #}
+    {# If avgDuration equal to 0 #}
+    {% if averageDuration is same as(0) %}
+        {% set averageDuration = 'n.r' %}
+    {% else %}
+        {% set averageDuration = averageDuration.format('H:i:s') ~ 'h' %}
+    {% endif %}
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ hike.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ hike.description }}</td>
+            </tr>
+            <tr>
+                <th>Distance</th>
+                <td>{{ hike.distance }}</td>
+            </tr>
+            <tr>
+                <th>Durée</th>
+                <td>{{ hike.duration ? hike.duration|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Difficulté</th>
+                <td>{{ hike.effort }}</td>
+            </tr>
+            <tr>
+                <th>Randonneurs max</th>
+                <td>{{ hike.maxUsers }}</td>
+            </tr>
+            <tr>
+                <th>Difficulté moyenne</th>
+                <td>{{ avgEffort|default('n.r') }}</td>
+            </tr>
+            <tr>
+                <th>Beauté moyenne</th>
+                <td>{{ avgBeauty|default('n.r') }}</td>
+            </tr>
+            <tr>
+                <th>Durée moyenne</th>
+                <td>{{ averageDuration }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ hike.createdAt ? hike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date de modification</th>
+                <td>{{ hike.updatedAt ? hike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('manager_hike_index') }}">back to list</a>
+
+    <a href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">edit</a>
+
+    {{ include('manager/hike/_delete_form.html.twig') }}
+{% endblock %}

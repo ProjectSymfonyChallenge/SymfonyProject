@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<title>Hike index</title>
+
+{% block body %}
+    <h1>Hike index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Distance</th>
+                <th>Durée</th>
+                <th>Difficulté</th>
+                <th>Randonneurs max</th>
+                <th>Moyenne des notes</th>
+                <th>Beauté moyenne</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hike in hikes %}
+            {% if hike.evaluations|length > 0 %}
+                {% set avgEffort = 0 %}
+                {% for evaluation in hike.evaluations %}
+                    {% set avgEffort = avgEffort + evaluation.effort %}
+                {% endfor %}
+                {% set avgEffort = avgEffort / hike.evaluations|length %}
+                {# Avg beauty #}
+                {% set avgBeauty = 0 %}
+                {% for evaluation in hike.evaluations %}
+                    {% set avgBeauty = avgBeauty + evaluation.beauty %}
+                {% endfor %}
+                {% set avgBeauty = avgBeauty / hike.evaluations|length %}
+            {% endif %}
+            <tr>
+                <td>{{ hike.name }}</td>
+                <td>{{ hike.distance ~ 'Km' }}</td>
+                <td>{{ hike.duration ? hike.duration|date('H:i:s') : '' ~ 'Heures' }}</td>
+                <td>{{ hike.effort ~ '/10' }}</td>
+                <td>{{ hike.maxUsers }}</td>
+                <td>{{ avgEffort }}</td>
+                <td>{{ avgBeauty }}</td>
+                <td>
+                    <a href="{{ path('manager_hike_show', {'slug': hike.slug}) }}">show</a>
+                    <a href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('manager_hike_new') }}">Create new</a>
+{% endblock %}

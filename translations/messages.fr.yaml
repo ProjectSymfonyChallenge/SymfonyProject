@@ -15,4 +15,5 @@ navbar:
   home: 'Accueil'
   logout: 'Déconnexion'
   user: 'Gestion des utilisateurs'
+  hike: 'Gestion des randonnées'
 

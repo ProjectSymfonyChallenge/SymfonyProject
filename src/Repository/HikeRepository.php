@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Hike;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Hike>
@@ -37,6 +38,19 @@ class HikeRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllByUserClub(User $user)
+    {
+        // get the first club of the user by filtering the clubs of the user
+        // and then get the hikes of the club
+        $result = $this->createQueryBuilder('h')
+            ->join('h.club', 'c')
+            ->where('c.id = :clubId')
+            ->setParameter('clubId', $user->getClubs()[0]->getId())
+            ->getQuery()
+            ->getResult();
+        return $result;
     }
 
 //    /**
