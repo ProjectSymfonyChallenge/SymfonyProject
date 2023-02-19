@@ -4,37 +4,76 @@ namespace App\Controller\Manager;
 
 use App\Entity\Hike;
 use App\Form\HikeType;
+use App\Entity\Picture;
 use App\Repository\HikeRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PictureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/hike', name: 'hike_')]
 class HikeController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(HikeRepository $hikeRepository): Response
+
+    /**
+     * @var HikeRepository
+     */
+    private HikeRepository $hikeRepository;
+
+    /**
+     * @var PictureRepository
+     */
+    private PictureRepository $pictureRepository;
+
+    public function __construct(HikeRepository $hikeRepository, PictureRepository $pictureRepository)
     {
-        $hikes = $hikeRepository->findAllByUserClub($this->getUser());
+        $this->hikeRepository = $hikeRepository;
+        $this->pictureRepository = $pictureRepository;
+    }
+
+    #[Route('/', name: 'index', methods: ['GET'])]
+    public function index(): Response
+    {
+        $hikes = $this->hikeRepository->findAllByUserClub($this->getUser());
         return $this->render('manager/hike/index.html.twig', [
             'hikes' => $hikes,
         ]);
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, HikeRepository $hikeRepository): Response
+    public function new(Request $request): Response
     {   
         $hike = new Hike();
         $form = $this->createForm(HikeType::class, $hike);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($this->getUser()->getClubs()->first());
+            $files = $form->get('file')->getData();
+
+            if ($files) {
+                $hikeDirectory = $this->getParameter('hike_directory');
+    
+                foreach ($files as $file) {
+                    $filename =  '/uploads/hikes/' . md5(uniqid()).'.'.$file->guessExtension();
+    
+                    $picture = (new Picture())
+                        ->setFilename($filename)
+                        ->setType('hike');
+    
+                    $this->pictureRepository->save($picture, false);
+    
+                    $file->move(
+                        $hikeDirectory,
+                        $filename
+                    );
+    
+                    $hike->addPicture($picture);
+                }
+            }
+
             $hike->setClub($this->getUser()->getClubs()->first());
-            dd($hike);
-            $hikeRepository->save($hike, true);
+            $this->hikeRepository->save($hike, true);
 
             return $this->redirectToRoute('manager_hike_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -68,13 +107,36 @@ class HikeController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Hike $hike, HikeRepository $hikeRepository): Response
+    public function edit(Request $request, Hike $hike): Response
     {
         $form = $this->createForm(HikeType::class, $hike);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $hikeRepository->save($hike, true);
+            $files = $form->get('file')->getData();
+
+            if ($files) {
+                $hikeDirectory = $this->getParameter('hike_directory');
+    
+                foreach ($files as $file) {
+                    $filename =  '/uploads/hikes/' . md5(uniqid()).'.'.$file->guessExtension();
+    
+                    $picture = (new Picture())
+                        ->setFilename($filename)
+                        ->setType('hike');
+    
+                    $this->pictureRepository->save($picture, false);
+    
+                    $file->move(
+                        $hikeDirectory,
+                        $filename
+                    );
+    
+                    $hike->addPicture($picture);
+                }
+            }
+
+            $this->hikeRepository->save($hike, true);
 
             return $this->redirectToRoute('manager_hike_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -86,10 +148,10 @@ class HikeController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Hike $hike, HikeRepository $hikeRepository): Response
+    public function delete(Request $request, Hike $hike): Response
     {
         if ($this->isCsrfTokenValid('delete'.$hike->getId(), $request->request->get('_token'))) {
-            $hikeRepository->remove($hike, true);
+            $this->hikeRepository->remove($hike, true);
         }
 
         return $this->redirectToRoute('manager_hike_index', [], Response::HTTP_SEE_OTHER);

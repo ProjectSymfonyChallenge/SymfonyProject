@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+{% include "base_manager.html.twig" %}
 
-<title>Hike</title>
+{% block title %}<title>{{'hike.title.show'|trans}}</title>{% endblock %}
 
 {% block body %}
-    <h1>Hike</h1>
+    <h1>{{'hike.title.show'|trans}}</h1>
     {% if hike.evaluations|length > 0 %}
         {% set avgEffort = 0 %}
         {% for evaluation in hike.evaluations %}
@@ -25,58 +25,81 @@
         {% set averageDuration = averageDuration.format('H:i:s') ~ 'h' %}
     {% endif %}
 
+    {% set assets = hike.pictures %}
+
+    {% if assets|length != 0 %}
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for asset in assets %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <img class="d-block w-100" src="{{ asset(asset.filename) }}">
+                </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            {{ 'hike.label.no_image'|trans }}
+        </div>
+    {% endif %}
     <table class="table">
         <tbody>
             <tr>
-                <th>Nom</th>
+                <th>{{ 'hike.label.name'|trans }}</th>
                 <td>{{ hike.name }}</td>
             </tr>
             <tr>
-                <th>Description</th>
+                <th>{{ 'hike.label.description'|trans }}</th>
                 <td>{{ hike.description }}</td>
             </tr>
             <tr>
-                <th>Distance</th>
-                <td>{{ hike.distance }}</td>
+                <th>{{ 'hike.label.distance'|trans }}</th>
+                <td>{{ hike.distance ~ 'Km' }}</td>
             </tr>
             <tr>
-                <th>Durée</th>
-                <td>{{ hike.duration ? hike.duration|date('H:i:s') : '' }}</td>
+                <th>{{ 'hike.label.duration'|trans }}</th>
+                <td>{{ hike.duration ? hike.duration|date('H:i') : '' }}</td>
             </tr>
             <tr>
-                <th>Difficulté</th>
+                <th>{{ 'hike.label.difficulty'|trans }}</th>
                 <td>{{ hike.effort }}</td>
             </tr>
             <tr>
-                <th>Randonneurs max</th>
+                <th>{{ 'hike.label.max_user'|trans }}</th>
                 <td>{{ hike.maxUsers }}</td>
             </tr>
             <tr>
-                <th>Difficulté moyenne</th>
+                <th>{{ 'hike.label.average_difficulty'|trans }}</th>
                 <td>{{ avgEffort|default('n.r') }}</td>
             </tr>
             <tr>
-                <th>Beauté moyenne</th>
+                <th>{{ 'hike.label.average_beautiful'|trans }}</th>
                 <td>{{ avgBeauty|default('n.r') }}</td>
             </tr>
             <tr>
-                <th>Durée moyenne</th>
+                <th>{{ 'hike.label.average_duration'|trans }}</th>
                 <td>{{ averageDuration }}</td>
             </tr>
             <tr>
-                <th>Date de création</th>
+                <th>{{ 'hike.label.created_at'|trans }}</th>
                 <td>{{ hike.createdAt ? hike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Date de modification</th>
+                <th>{{ 'hike.label.updated_at'|trans }}</th>
                 <td>{{ hike.updatedAt ? hike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('manager_hike_index') }}">back to list</a>
+    <a href="{{ path('manager_hike_index') }}">{{ 'hike.btn.back'|trans }}</a>
 
-    <a href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">edit</a>
+    <a href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">{{ 'hike.btn.edit'|trans }}</a>
 
     {{ include('manager/hike/_delete_form.html.twig') }}
 {% endblock %}
