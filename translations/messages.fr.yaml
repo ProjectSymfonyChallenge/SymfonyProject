@@ -7,7 +7,7 @@ nav:
   home: 'Accueil'
 form:
   title:
-    register: 'Inscription'
+    register: 'S''inscrire'
     edit: 'Modifier votre profil'
   btn:
     register: 'Créer mon compte'
@@ -29,3 +29,7 @@ form:
   link:
     already_account: 'Déjà un compte ?'
   success: 'Votre compte a été créé avec succès, vous avez besoin d''activer votre compte grâce à l''email que nous venons de vous envoyer!'
+navbar:
+    home: 'Accueil'
+    logout: 'Déconnexion'
+    user: 'Gestion des utilisateurs'

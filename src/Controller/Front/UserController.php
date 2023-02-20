@@ -58,6 +58,5 @@ class UserController extends AbstractController
             return $this->render('front/user/show.html.twig', ['user' => $user, 'form' => $form->createView()]);
         }
         return $this->render('front/user/show.html.twig', ['user' => $user, 'form' => $form->createView()]);
-    }
 
 }

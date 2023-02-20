@@ -1,0 +1,31 @@
+.card {
+  box-shadow: $box-shadow;
+  border: none;
+
+    .card-header {
+      background-color: white;
+      border: none;
+      color: $green-2;
+      text-align: center;
+      padding: 3rem 0 1.5rem 0;
+
+      @media (max-width: 480px) {
+        padding: 1.5rem 0 0.5rem 0;
+      }
+
+      h1 {
+        font-weight: 400;
+        font-size: 2rem;
+
+        @media (max-width: 990px) {
+          font-size: 1.5rem;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 1rem;
+        }
+      }
+
+    }
+
+}

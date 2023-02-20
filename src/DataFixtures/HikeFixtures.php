@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Hike;
+use App\Entity\Locality;
+use App\DataFixtures\LocalityFixtures;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -14,6 +16,8 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Factory::create('fr_FR');
 
+        $localities = $manager->getRepository(Locality::class)->findAll();
+
         for ($j=0; $j < 5; $j++) {             
             for ($i=0; $i < 5; $i++) { 
                 $object = (new Hike())
@@ -23,6 +27,7 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
                     ->setDuration($faker->dateTimeInInterval('now', '+2 days'))
                     ->setEffort($faker->randomNumber(1, 5))
                     ->setMaxUsers($faker->randomNumber(1, 20))
+                    ->setLocality($localities[array_rand($localities)])
                     ->setClub($this->getReference('club' . $j))
                 ;
     
@@ -39,6 +44,7 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             ClubFixtures::class,
+            LocalityFixtures::class,
         ];
     }
 }

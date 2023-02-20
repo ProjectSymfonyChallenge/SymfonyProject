@@ -1,0 +1,49 @@
+.custom-input {
+  padding: 0 2rem;
+
+  @media (max-width: 480px) {
+    padding: unset;
+  }
+
+  label {
+    color: $green-2;
+
+    @media (max-width: 480px) {
+      font-size: 0.75rem;
+    }
+
+  }
+
+  input {
+
+    color: $grey;
+
+    @media (max-width: 480px) {
+      font-size: 0.75rem;
+    }
+
+    &:hover {
+      border-color: $green-3;
+      transition: border-color 0.4s ease-in-out;
+    }
+
+    &:focus {
+      border-color: $green-3;
+      color: $grey;
+    }
+
+
+  }
+
+}
+
+.form-check-input {
+  @media (max-width: 480px) {
+    margin-top: 7px;
+  }
+}
+
+.form-check-input:checked {
+  background-color: $green-3;
+  border-color: $green-3;
+}

@@ -1,0 +1,39 @@
+@import "../base/_base";
+
+.card {
+  width: 50%;
+  margin: 6rem auto 0 auto;
+  font-weight: 200;
+
+  @media (max-width: 990px) {
+    width: 70%;
+  }
+
+  @media (max-height: 768px) {
+    margin-top: 2rem;
+  }
+
+  @media (max-height: 480px) {
+    margin-top: 1rem;
+  }
+}
+
+.custom-input {
+  a {
+    color: $green-3;
+    font-size: 0.75rem;
+
+    &:hover {
+      color: #0C8552;
+      transition: color 0.4s ease-in-out;
+    }
+  }
+}
+
+.d-flex {
+  align-items: center;
+
+  @media (max-width: 990px) {
+    flex-direction: column;
+  }
+}
