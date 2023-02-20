@@ -39,13 +39,12 @@ class UserController extends AbstractController
     #[Route('show', name: 'show', methods: ['GET', 'POST'])]
     public function show(Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
-        dd($request->request->get('user'), $request);
         $userPwd = $request->request->get('password');
         $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid() && $request->isMethod('POST')){
-            if (!empty($userPwd['first']) && $userPwd['first'] === $userPwd['second']){
+        if ($form->isSubmitted() && $form->isValid() && $request->isMethod('POST')) {
+            if (!empty($userPwd['first']) && $userPwd['first'] === $userPwd['second']) {
                 $hashedPassword = $passwordHasher->hashPassword(
                     $user,
                     $userPwd['first']
@@ -54,9 +53,9 @@ class UserController extends AbstractController
             }
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-            $this->addFlash('success', $this->translation-> trans("form.success"));
+            $this->addFlash('success', $this->translation->trans("form.success"));
             return $this->render('front/user/show.html.twig', ['user' => $user, 'form' => $form->createView()]);
         }
         return $this->render('front/user/show.html.twig', ['user' => $user, 'form' => $form->createView()]);
-
+    }
 }

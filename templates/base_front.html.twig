@@ -23,15 +23,20 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('front_default_index') }}">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
-                    </li>
+                    {% if app.user %}
+                        {% include 'front/_embed/navbar.html.twig' %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('front_default_index') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                        </li>
+                    {% endif %}
+
                     {% if (is_granted('ROLE_ADMIN')) %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('back_default_index') }}">Panel d'admin</a>

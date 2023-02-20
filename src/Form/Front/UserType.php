@@ -19,39 +19,75 @@ class UserType extends AbstractType
             ->add('email', TextType::class, [
                 'label' => 'form.label.email',
                 'help' => 'form.help.email',
-                'attr' => [],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
                 'mapped' => true,
                 'required' => true,
             ])
             ->add('firstname', TextType::class,[
                 'label' => 'form.label.firstname',
                 'help' => 'form.help.firstname',
-                'attr' => [],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
                 'mapped' => true,
                 'required' => false,
             ])
             ->add('lastname', TextType::class,[
                 'label' => 'form.label.lastname',
                 'help' => 'form.help.lastname',
-                'attr' => [],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
                 'mapped' => true,
                 'required' => false,
             ])
             ->add('username', TextType::class,[
                 'label' => 'form.label.username',
                 'help' => 'form.help.username',
-                'attr' => [],
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'label_attr' => [
+                    'class' => 'form-label'
+                ],
                 'mapped' => true,
                 'required' => true,
             ])
 
             ->add('password', RepeatedType::class,[
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'form.label.password'],
-                'second_options' => ['label' => 'form.label.cpassword'],
+                'first_options'  => [
+                    'label' => 'form.label.password',
+                    'label_attr' => [
+                        'class' => 'form-label'
+                    ],
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                ],
+                'second_options' => [
+                    'label' => 'form.label.cpassword',
+                    'label_attr' => [
+                            'class' => 'form-label'
+                        ],
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                ],
                 'help' => 'form.help.password',
                 'form_attr' => true,
-                'attr' => ['class' => 'flex flex-col'],
+
                 'mapped' => false,
                 'required' => false,
             ])

@@ -1,7 +1,5 @@
-<ul id='back_navbar'>
-  <li><a class="active" href="/">{{ 'nav.home' | trans() }}</a></li>
-  <li><a href="{{ path('front_user_show') }}">{{ 'nav.profile' | trans() }}</a></li>
-  <li><a href="#contact">{{ 'nav.contact' | trans() }}</a></li>
-  <li><a href="#about">{{ 'nav.about' | trans() }}</a></li>
-  <li><a href="{{ path('app_logout') }}">{{ 'nav.logout' | trans() }}</a></li>
-</ul>
+<li class="nav-item"><a class="nav-link" href="/">{{ 'nav.home' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ path('front_user_show') }}">{{ 'nav.profile' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="#contact">{{ 'nav.contact' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="#about">{{ 'nav.about' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">{{ 'nav.logout' | trans() }}</a></li>
