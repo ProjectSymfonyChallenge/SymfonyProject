@@ -12,10 +12,7 @@
     </head>
     <body>
         <nav>
-            <ul>
-                <li><a href="{{ path('front_default_index') }}">Accueil</a></li>
-                {% if (is_granted('ROLE_ADMIN')) %} <li><a href="{{ path('back_default_index') }}">Panel d'admin</a></li>{% endif %}
-            </ul>
+            {{ include('front/_embed/navbar.html.twig') }}
         </nav>
         {% block body %}{% endblock %}
     </body>

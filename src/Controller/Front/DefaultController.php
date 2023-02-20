@@ -10,9 +10,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[IsGranted('ROLE_USER')]
 class DefaultController extends AbstractController
 {
+    public function __construct()
+    {
+
+    }
+
     #[Route('/', name: 'default_index')]
     public function index(): Response
     {
+
         return $this->render('front/default/index.html.twig');
     }
 

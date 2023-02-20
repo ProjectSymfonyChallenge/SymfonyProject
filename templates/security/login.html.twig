@@ -37,11 +37,7 @@
 
 		<h1 class="text-3xl">Please sign in</h1>
 		<label for="inputEmail">Email</label>
-		{% if last_username is defined %}
-		<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		{% else %}
 		<input type="email" value="" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-		{% endif %}
 		<label for="inputPassword">Password</label>
 		<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 		<div class="checkbox mb-3">
