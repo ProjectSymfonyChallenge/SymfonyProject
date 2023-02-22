@@ -39,8 +39,8 @@
                 <td>{{ hike.duration ? hike.duration|date('H:i') : '' ~ 'Heures' }}</td>
                 <td>{{ hike.effort ~ '/10' }}</td>
                 <td>{{ hike.maxUsers }}</td>
-                <td>{{ avgEffort }}</td>
-                <td>{{ avgBeauty }}</td>
+                <td>{{ avgEffort|default('Pas d\'évaluations') }}</td>
+                <td>{{ avgBeauty|default('Pas d\'évaluations') }}</td>
                 <td>
                     <a href="{{ path('manager_hike_show', {'slug': hike.slug}) }}">{{ 'hike.btn.show'|trans }}</a>
                     <a href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">{{ 'hike.btn.edit'|trans }}</a>

@@ -25,12 +25,15 @@ class Picture
     private ?string $filename = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Hike $hike = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Club $club = null;
 
     #[ORM\OneToOne(inversedBy: 'picture', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Badge $badge = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]

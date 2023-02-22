@@ -20,7 +20,7 @@
     {# Average duration #}
     {# If avgDuration equal to 0 #}
     {% if averageDuration is same as(0) %}
-        {% set averageDuration = 'n.r' %}
+        {% set averageDuration = 'Pas d\'évaluations' %}
     {% else %}
         {% set averageDuration = averageDuration.format('H:i:s') ~ 'h' %}
     {% endif %}
@@ -76,15 +76,15 @@
             </tr>
             <tr>
                 <th>{{ 'hike.label.average_difficulty'|trans }}</th>
-                <td>{{ avgEffort|default('n.r') }}</td>
+                <td>{{ avgEffort|default('Pas d\'évaluations') }}</td>
             </tr>
             <tr>
                 <th>{{ 'hike.label.average_beautiful'|trans }}</th>
-                <td>{{ avgBeauty|default('n.r') }}</td>
+                <td>{{ avgBeauty|default('Pas d\'évaluations') }}</td>
             </tr>
             <tr>
                 <th>{{ 'hike.label.average_duration'|trans }}</th>
-                <td>{{ averageDuration }}</td>
+                <td>{{ averageDuration|default('Pas d\'évaluations') }}</td>
             </tr>
             <tr>
                 <th>{{ 'hike.label.created_at'|trans }}</th>
