@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<title>New Hike</title>
+
+{% block body %}
+    <h1>Create new Hike</h1>
+
+    {{ include('manager/hike/_form.html.twig') }}
+
+    <a href="{{ path('manager_hike_index') }}">back to list</a>
+{% endblock %}
