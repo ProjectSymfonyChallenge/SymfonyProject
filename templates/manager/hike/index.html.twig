@@ -1,0 +1,58 @@
+{% include "base_manager.html.twig" %}
+
+{% block title %}<title>{{'hike.title.list'|trans}}</title>{% endblock %}
+
+{% block body %}
+    <h1>{{ 'hike.title.list'|trans }}</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ 'hike.label.name'|trans }}</th>
+                <th>{{ 'hike.label.distance'|trans }}</th>
+                <th>{{ 'hike.label.duration'|trans }}</th>
+                <th>{{ 'hike.label.difficulty'|trans }}</th>
+                <th>{{ 'hike.label.max_user'|trans }}</th>
+                <th>{{ 'hike.label.average_difficulty'|trans }}</th>
+                <th>{{ 'hike.label.average_beautiful'|trans }}</th>
+                <th>{{ 'hike.label.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hike in hikes %}
+            {% if hike.evaluations|length > 0 %}
+                {% set avgEffort = 0 %}
+                {% for evaluation in hike.evaluations %}
+                    {% set avgEffort = avgEffort + evaluation.effort %}
+                {% endfor %}
+                {% set avgEffort = avgEffort / hike.evaluations|length %}
+                {# Avg beauty #}
+                {% set avgBeauty = 0 %}
+                {% for evaluation in hike.evaluations %}
+                    {% set avgBeauty = avgBeauty + evaluation.beauty %}
+                {% endfor %}
+                {% set avgBeauty = avgBeauty / hike.evaluations|length %}
+            {% endif %}
+            <tr>
+                <td>{{ hike.name }}</td>
+                <td>{{ hike.distance ~ 'Km' }}</td>
+                <td>{{ hike.duration ? hike.duration|date('H:i') : '' ~ 'Heures' }}</td>
+                <td>{{ hike.effort ~ '/10' }}</td>
+                <td>{{ hike.maxUsers }}</td>
+                <td>{{ avgEffort|default('Pas d\'évaluations') }}</td>
+                <td>{{ avgBeauty|default('Pas d\'évaluations') }}</td>
+                <td>
+                    <a href="{{ path('manager_hike_show', {'slug': hike.slug}) }}">{{ 'hike.btn.show'|trans }}</a>
+                    <a href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">{{ 'hike.btn.edit'|trans }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">{{ 'hike.label.no_hike'|trans }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('manager_hike_new') }}">{{ 'hike.title.add'|trans }}</a>
+{% endblock %}

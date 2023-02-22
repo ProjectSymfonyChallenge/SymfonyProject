@@ -1,0 +1,28 @@
+.btn {
+  color: white;
+  font-weight: 200;
+  border-radius: 4px;
+
+    @media (max-width: 480px) {
+        font-size: 0.75rem;
+    }
+}
+
+.btn-light-green {
+  background-color: $green-3;
+
+  &:hover {
+    background-color: #0C8552;
+    color: white;
+  }
+
+}
+
+.btn-dark-green {
+    background-color: #0C8552;
+
+    &:hover {
+        background-color: $green-3;
+        color: white;
+    }
+}
