@@ -47,7 +47,7 @@ class HikeRepository extends ServiceEntityRepository
         $result = $this->createQueryBuilder('h')
             ->join('h.club', 'c')
             ->where('c.id = :clubId')
-            ->setParameter('clubId', $user->getClubs()[0]->getId())
+            ->setParameter('clubId', $user->getClubs()->first()->getId())
             ->getQuery()
             ->getResult();
         return $result;

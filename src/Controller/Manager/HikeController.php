@@ -31,7 +31,6 @@ class HikeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // dd($this->getUser()->getClubs()->first());
             $hike->setClub($this->getUser()->getClubs()->first());
             dd($hike);
             $hikeRepository->save($hike, true);
