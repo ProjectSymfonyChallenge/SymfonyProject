@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation\Slug;
 use App\Entity\Traits\TimestampableTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Range;
 
 #[ORM\Entity(repositoryClass: HikeRepository::class)]
 class Hike
@@ -34,6 +35,7 @@ class Hike
     private Collection $evaluations;
 
     #[ORM\Column]
+    #[Range(min: 1, max: 100, notInRangeMessage: 'La distance doit être comprise entre 1Km et 100Km')]
     private ?float $distance = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
@@ -43,12 +45,14 @@ class Hike
     private Collection $pictures;
 
     #[ORM\Column(length: 255)]
+    #[Range(min: 1, max: 10, notInRangeMessage: 'L\'effort doit être compris entre 1 et 10')]
     private ?string $effort = null;
 
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Booking::class)]
     private Collection $bookings;
 
     #[ORM\Column]
+    #[Range(min: 1, max: 40, notInRangeMessage: 'Le nombre de participants doit être compris entre 1 et 40')]
     private ?int $max_users = null;
 
     #[ORM\Column(length: 255)]

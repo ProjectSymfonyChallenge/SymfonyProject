@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\User;
 use App\Entity\Level;
+use App\Entity\Picture;
 use App\Entity\Locality;
 use App\DataFixtures\BadgeFixtures;
 use App\DataFixtures\LevelFixtures;
@@ -25,6 +26,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $levels = $manager->getRepository(Level::class)->findAll();
         $localities = $manager->getRepository(Locality::class)->findAll();
 
+        $picture = (new Picture())
+            ->setFilename($faker->imageUrl(640, 480, 'admin'))
+            ->setType('user');
+
+        $manager->persist($picture);
+
         $object = (new User())
             ->setLevel($levels[array_rand($levels)])
             ->setLocality($localities[array_rand($localities)])
@@ -35,6 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setStatus(TRUE)
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword($pwd)
+            ->addPicture($picture)
             ->addBadge($this->getReference('badgeWelcome'))
             ->addBadge($this->getReference('badgeFirstComment'))
             ->addBadge($this->getReference('badge10Comments'))
@@ -51,6 +59,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $manager->persist($object);
 
+        $picture = (new Picture())
+            ->setFilename($faker->imageUrl(640, 480, 'gérant'))
+            ->setType('user');
+
+        $manager->persist($picture);
+
         $object = (new User())
             ->setLevel($levels[array_rand($levels)])
             ->setLocality($localities[array_rand($localities)])
@@ -61,8 +75,15 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setStatus(TRUE)
             ->setRoles(['ROLE_GERANT'])
             ->setPassword($pwd)
+            ->addPicture($picture)
         ;
         $manager->persist($object);
+
+        $picture = (new Picture())
+            ->setFilename($faker->imageUrl(640, 480, 'guide'))
+            ->setType('user');
+
+        $manager->persist($picture);
 
         $object = (new User())
             ->setLevel($levels[array_rand($levels)])
@@ -74,10 +95,17 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setStatus(TRUE)
             ->setRoles(['ROLE_GUIDE'])
             ->setPassword($pwd)
+            ->addPicture($picture)
         ;
         $manager->persist($object);
 
         for ($i = 0; $i < 5; $i++) {
+            $picture = (new Picture())
+            ->setFilename('https://picsum.photos/200/200?random=1')
+            ->setType('user');
+
+            $manager->persist($picture);
+
             $object = (new User())
                 ->setLevel($levels[array_rand($levels)])
                 ->setLocality($localities[array_rand($localities)])
@@ -88,6 +116,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setStatus(TRUE)
                 ->setRoles(['ROLE_GERANT'])
                 ->setPassword($pwd)
+                ->addPicture($picture)
             ;
             $manager->persist($object);
 
@@ -95,6 +124,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         }
 
         for ($i=0; $i < 50; $i++) {
+            $picture = (new Picture())
+            ->setFilename('https://picsum.photos/200/200?random=1')
+            ->setType('user');
+
+            $manager->persist($picture);
+
             $object = (new User())
                 ->setLevel($levels[array_rand($levels)])
                 ->setLocality($localities[array_rand($localities)])
@@ -105,6 +140,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 ->setStatus(TRUE)
                 ->setRoles([])
                 ->setPassword($pwd)
+                ->addPicture($picture)
             ;
             $manager->persist($object);
         }

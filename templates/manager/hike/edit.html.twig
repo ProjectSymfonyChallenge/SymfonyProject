@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+{% include "base_manager.html.twig" %}
 
-<title>Edit Hike</title>
+{% block title %}<title>{{'hike.title.edit'|trans}}</title>{% endblock %}
 
 {% block body %}
-    <h1>Edit Hike</h1>
+    <h1>{{ 'hike.title.edit'|trans }}</h1>
 
-    {{ include('manager/hike/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('manager/hike/_form.html.twig', {'button_label': 'hike.btn.edit'|trans}) }}
 
-    <a href="{{ path('manager_hike_index') }}">back to list</a>
+    <a href="{{ path('manager_hike_index') }}">{{ 'hike.btn.back'|trans }}</a>
 
     {{ include('manager/hike/_delete_form.html.twig') }}
 {% endblock %}
