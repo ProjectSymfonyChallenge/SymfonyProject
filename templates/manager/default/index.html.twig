@@ -1,7 +1,32 @@
 {% extends 'base_manager.html.twig' %}
-
-{% block title %}Accueil{% endblock %}
-
 {% block body %}
-    Page d'accueil
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>ManagerTESTEST</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.roles|json_encode|replace({'["ROLE_':'','"]':''}) }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
