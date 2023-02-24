@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Picture;
 use Faker\Factory;
 use App\Entity\Hike;
 use App\Entity\Locality;
@@ -18,8 +19,42 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
 
         $localities = $manager->getRepository(Locality::class)->findAll();
 
+        for ($i=0; $i < 12; $i++) { 
+            $picture = (new Picture())
+            ->setFilename('https://picsum.photos/640/480?random=1')
+            ->setType('hike');
+
+            $picture2 = (new Picture())
+                ->setFilename('https://picsum.photos/640/480?random=1')
+                ->setType('hike');
+
+            $object = (new Hike())
+                ->setName($faker->name)
+                ->setDescription($faker->text)
+                ->setDistance($faker->randomFloat(2, 1, 50))
+                ->setDuration($faker->dateTimeInInterval('now', '+2 days'))
+                ->setEffort($faker->randomNumber(1, 5))
+                ->setMaxUsers($faker->randomNumber(1, 20))
+                ->setLocality($localities[array_rand($localities)])
+                ->addPicture($picture)
+                ->addPicture($picture2)
+                ->setClub($this->getReference('club'));
+
+            $manager->persist($object);
+            $manager->persist($picture);
+            $manager->persist($picture2);
+        }
+
         for ($j=0; $j < 5; $j++) {             
             for ($i=0; $i < 5; $i++) { 
+                $picture = (new Picture())
+                    ->setFilename('https://picsum.photos/640/480?random=1')
+                    ->setType('hike');
+
+                $picture2 = (new Picture())
+                    ->setFilename('https://picsum.photos/640/480?random=1')
+                    ->setType('hike');
+
                 $object = (new Hike())
                     ->setName($faker->name)
                     ->setDescription($faker->text)
@@ -28,10 +63,13 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
                     ->setEffort($faker->randomNumber(1, 5))
                     ->setMaxUsers($faker->randomNumber(1, 20))
                     ->setLocality($localities[array_rand($localities)])
-                    ->setClub($this->getReference('club' . $j))
-                ;
+                    ->addPicture($picture)
+                    ->addPicture($picture2)
+                    ->setClub($this->getReference('club' . $j));
     
                 $manager->persist($object);
+                $manager->persist($picture);
+                $manager->persist($picture2);
 
                 $this->addReference('hike' . $j . $i, $object);
             }

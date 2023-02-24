@@ -2,10 +2,12 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Club;
 use App\Entity\User;
 use App\Form\Back\UserType;
-use App\Repository\LevelRepository;
+use App\Repository\ClubRepository;
 use App\Repository\UserRepository;
+use App\Repository\LevelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,7 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UserRepository $userRepository, LevelRepository $levelRepository, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, UserRepository $userRepository, LevelRepository $levelRepository, ClubRepository $clubRepository, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -42,6 +44,12 @@ class UserController extends AbstractController
             $user->setStatus(true);
             $user->setLevel($level);
             $userRepository->save($user, true);
+
+            $club = (new Club())
+                ->setName($user->getUsername() . ' Club')
+                ->setManager($user);
+
+            $clubRepository->save($club, true);
 
             return $this->redirectToRoute('back_user_index', [], Response::HTTP_SEE_OTHER);
         }
