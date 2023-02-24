@@ -1,0 +1,11 @@
+.container-fluid:not(:first-child) {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+  width: 90% !important;
+  margin-top: 0.75rem !important;
+  padding: 1.25rem 1.75rem;
+}
