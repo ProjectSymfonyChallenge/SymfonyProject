@@ -3,7 +3,7 @@
 {% block title %}<title>{{'hike.title.list'|trans}}</title>{% endblock %}
 
 {% block body %}
-    <div class="container-fluid h1-container">
+    <div class="container-fluid h1-container-mng">
         <div class="row align-items-center">
             <div class="col">
                 <h1 class="h1-mng">{{ 'hike.title.list'|trans }}</h1>
@@ -24,7 +24,7 @@
                 <th>{{ 'hike.label.capacity'|trans }}</th>
                 <th>{{ 'hike.label.average_difficulty'|trans }}</th>
                 <th>{{ 'hike.label.average_beautiful'|trans }}</th>
-                <th>{{ 'hike.label.actions'|trans }}</th>
+                <th class="text-end">{{ 'hike.label.actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -50,7 +50,7 @@
                     <td>{{ hike.maxUsers }}</td>
                     <td>{{ avgEffort|default('Pas d\'évaluations') }}</td>
                     <td>{{ avgBeauty|default('Pas d\'évaluations') }}</td>
-                    <td style="width: 20%">
+                    <td class="text-end" style="width: 20%">
                         <a class="btn-link link-see" href="{{ path('manager_hike_show', {'slug': hike.slug}) }}">{{ 'hike.btn.show'|trans }}</a>
                         <a class="btn-link link-edit" href="{{ path('manager_hike_edit', {'slug': hike.slug}) }}">{{ 'hike.btn.edit'|trans }}</a>
                     </td>
