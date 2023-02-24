@@ -38,7 +38,7 @@
 							<input id="inputEmail"
 								   name="email"
 								   type="email"
-								   value="{{ last_username }}"
+								   value="{{ last_username|default('') }}"
 								   autocomplete="email"
 								   class="form-control"
 								   required
