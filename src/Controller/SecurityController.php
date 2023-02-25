@@ -8,6 +8,7 @@ use App\Repository\LevelRepository;
 use App\Repository\UserRepository;
 use App\Service\Emailing;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Validator\Constraints\Form;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,8 +84,8 @@ class SecurityController extends AbstractController
             $userEmail = $user->getEmail();
             $userToken = $user->getToken();
             $result = $this->emailing->sendEmailing([$userEmail], 1, $userToken);
-            $this->addFlash('success', $this->translation-> trans("form.succes"));
-            return $this->render("security/login.html.twig");
+            $this->addFlash('success', $this->translation-> trans("form.success"));
+            return $this->redirectToRoute("app_login");
         }
 
         return $this->render("front/register.html.twig",[

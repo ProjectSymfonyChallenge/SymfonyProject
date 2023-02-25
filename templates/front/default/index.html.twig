@@ -3,5 +3,23 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    Page d'accueil
+
+    <section class="zoom">
+        <img id="layer1" src="{{ asset('build/images/mountain1.png') }}" alt="picture mountain left">
+        <img id="layer2" src="{{ asset('build/images/mountain2.png') }}" alt="picture mountain right">
+        <div id="text" class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <p>Atteignez de nouveaux sommets</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <h2>Ueee Peak Experience ueee</h2>
+        <p>
+            Atteignez de nouveaux sommets
+        </p>
+    </section>
+    
 {% endblock %}
