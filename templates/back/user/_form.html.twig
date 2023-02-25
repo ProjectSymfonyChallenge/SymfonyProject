@@ -1,5 +1,25 @@
 {{ form_start(form) }}
         {{ form_errors(form) }}
-        {{ form_rest(form) }}
+        {#{{ form_rest(form) }}#}
+        <div class="mb-3 custom-input">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email) }}
+        </div>
+        <div class="mb-3 custom-input">
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname) }}
+        </div>
+        <div class="mb-3 custom-input">
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname) }}
+        </div>
+        <div class="mb-3 custom-input">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username) }}
+        </div>
+        <div class="mb-3 custom-input">
+                {{ form_label(form.roles) }}
+                {{ form_widget(form.roles) }}
+        </div>
         <input type="submit" value="{{ btnValue }}">
 {{ form_end(form) }}
