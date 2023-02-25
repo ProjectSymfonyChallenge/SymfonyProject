@@ -1,5 +1,7 @@
 @import "./node_modules/bootstrap/scss/bootstrap";
 
+@import "abstracts/_variables";
+
 @import "base/_base";
 
 @import "components/_button";
@@ -9,5 +11,6 @@
 @import "layout/_footer";
 @import "layout/_header";
 @import "layout/_navbar";
+@import "layout/_parallax.scss";
 
 @import "pages/_login";
