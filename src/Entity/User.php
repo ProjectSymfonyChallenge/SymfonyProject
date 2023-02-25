@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    #[Assert\NotBlank(message: 'Email obligatoire')]
+    #[Assert\NotBlank(message: 'Nom d\'utilisateur obligatoire')]
     private ?string $username = null;
 
     #[ORM\ManyToMany(targetEntity: Badge::class, inversedBy: 'users')]

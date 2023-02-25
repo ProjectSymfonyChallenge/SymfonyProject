@@ -67,31 +67,6 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegisterType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && $request->isMethod('post')){
-            /*
-                    $existingUserEmail = $this->userRepository->findBy(['email' => $user->getEmail()]);
-                    $existingUserName = $this->userRepository->findBy(['username' => $user->getUsername()]);
-                    if (count($existingUserEmail) > 0 || count($existingUserName) > 0) {
-                        $existingEmail = false;
-                        $existingName = false;
-
-                        if (count($existingUserEmail) > 0) {
-                            $this->addFlash('error', 'Email already taken.');
-                            $existingEmail = true;
-                        }
-                        if ($existingUserName > 0) {
-                            $this->addFlash('error', 'Username already taken.');
-                            $existingName = true;
-                        }
-                        return $this->render('front/register.html.twig', [
-                            'form' => $form->createView(),
-                            'emailExists' => $existingEmail,
-                            'usernameExists' => $existingName,
-                        ]);
-                    }*/
-
-
-
-
 
             $hashedPassword = $passwordHasher->hashPassword(
                 $user,
@@ -115,8 +90,6 @@ class SecurityController extends AbstractController
 
         return $this->render("front/register.html.twig",[
             'form' => $form->createView(),
-            'emailExists' => false,
-            'usernameExists' => false,
         ]);
     }
     #[Route(path: '/test', name: 'app_test')]
