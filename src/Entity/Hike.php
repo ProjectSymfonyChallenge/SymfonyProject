@@ -9,6 +9,7 @@ use Gedmo\Mapping\Annotation\Slug;
 use App\Entity\Traits\TimestampableTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Range;
 
 #[ORM\Entity(repositoryClass: HikeRepository::class)]
 class Hike
@@ -27,13 +28,14 @@ class Hike
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'hikes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Club $club = null;
 
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Evaluation::class)]
     private Collection $evaluations;
 
     #[ORM\Column]
+    #[Range(min: 1, max: 100, notInRangeMessage: 'La distance doit être comprise entre 1Km et 100Km')]
     private ?float $distance = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
@@ -43,12 +45,14 @@ class Hike
     private Collection $pictures;
 
     #[ORM\Column(length: 255)]
+    #[Range(min: 1, max: 10, notInRangeMessage: 'L\'effort doit être compris entre 1 et 10')]
     private ?string $effort = null;
 
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Booking::class)]
     private Collection $bookings;
 
     #[ORM\Column]
+    #[Range(min: 1, max: 40, notInRangeMessage: 'Le nombre de participants doit être compris entre 1 et 40')]
     private ?int $max_users = null;
 
     #[ORM\Column(length: 255)]
@@ -57,6 +61,9 @@ class Hike
 
     #[ORM\OneToMany(mappedBy: 'hike', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'hike')]
+    private ?Locality $locality = null;
 
     public function __construct()
     {
@@ -283,6 +290,18 @@ class Hike
                 $comment->setHike(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocality(): ?Locality
+    {
+        return $this->locality;
+    }
+
+    public function setLocality(?Locality $locality): self
+    {
+        $this->locality = $locality;
 
         return $this;
     }

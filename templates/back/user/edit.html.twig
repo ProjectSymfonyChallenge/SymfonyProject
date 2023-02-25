@@ -3,8 +3,6 @@
 {% block title %}Editer un utilisateur{% endblock %}
 
 {% block body %}
-    {% embed "back/_embed/navbar.html.twig" %}
-    {% endembed %}
     <h1>Edit User</h1>
 
     {% include 'back/user/_form.html.twig' with {'btnValue': 'Modifier'} %}

@@ -1,17 +1,70 @@
 test: 'Salut'
-form.title.register: 'Inscription'
-form.btn.register: "S'inscrire"
-form.label.email: 'Email :'
-form.label.username: 'Pseudo :'
-form.label.password: 'Mot de passe :'
-form.label.cpassword: 'Confirmation du mot de passe :'
-form.help.email: 'Saisissez un email'
-form.help.username: 'Saisissez un pseudo'
-form.help.password: 'Saisissez un mot de passe'
-form.help.cpassword: 'Resaisissez le mot de passe'
-form.link.already_account: 'Déjà un compte ?'
-form.succes: 'Votre compte a été créé avec succès, vous avez besoin d''activer votre compte grâce à l''email que nous venons de vous envoyer!'
-manager:
-  navbar:
-    home: 'Accueil'
-    logout: 'Déconnexion'
+nav:
+  logout: 'Déconnexion'
+  about: 'À propos'
+  contact: 'Contact'
+  profile: 'Profil'
+  home: 'Accueil'
+form:
+  title:
+    register: 'S''inscrire'
+    edit: 'Modifier votre profil'
+  btn:
+    register: 'Créer mon compte'
+    edit: 'Modifier mon compte'
+  label:
+    email: 'Email :'
+    username: 'Pseudo :'
+    firstname: 'Prénom :'
+    lastname: 'Nom :'
+    password: 'Mot de passe :'
+    cpassword: 'Confirmation du mot de passe :'
+  help:
+    email: 'Saisissez un email'
+    username: 'Saisissez un pseudo'
+    firstname: 'Saisissez un prénom'
+    lastname: 'Saisissez un nom'
+    password: 'Saisissez un mot de passe'
+    cpassword: 'Resaisissez le mot de passe'
+  link:
+    already_account: 'Déjà un compte ?'
+  success: 'Votre compte a été créé avec succès, vous avez besoin d''activer votre compte grâce à l''email que nous venons de vous envoyer!'
+navbar:
+  home: 'Accueil'
+  logout: 'Déconnexion'
+  user: 'Gestion des utilisateurs'
+  hike: 'Gestion des randonnées'
+
+hike:
+  title:
+    list: 'Liste des randonnées'
+    show: 'Détails de la randonnée'
+    add: 'Ajouter une randonnée'
+    edit: 'Modifier une randonnée'
+  btn:
+    add: 'Ajouter'
+    edit: 'Modifier'
+    show: 'Voir'
+    delete: 'Supprimer'
+    cancel: 'Annuler'
+    save: 'Enregistrer'
+    back: 'Retour à la liste'
+  label:
+    name: 'Nom :'
+    description: 'Description :'
+    distance: 'Distance :'
+    distance_form: 'Distance (en km) :'
+    duration: 'Durée :'
+    duration_form: 'Durée (en heures) :'
+    difficulty: 'Difficulté :'
+    difficulty_form: 'Difficulté (de 1 à 10) :'
+    max_user: 'Nombre maximum de participants :'
+    average_difficulty: 'Difficulté moyenne :'
+    average_duration: 'Durée moyenne :'
+    average_beautiful: 'Beauté moyenne :'
+    actions: 'Actions :'
+    created_at: 'Créé le :'
+    updated_at: 'Modifié le :'
+    image: 'Image :'
+    no_hike: 'Aucune randonnée'
+    no_image: 'Aucune image pour cette randonnée'

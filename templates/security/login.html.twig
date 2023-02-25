@@ -1,5 +1,6 @@
 {% extends 'base_front.html.twig' %}
 
+
 {% block stylesheets %}
 	{{ parent() }}
 	{{ encore_entry_link_tags('login') }}
@@ -15,6 +16,7 @@
 {% endblock %}
 
 {% block body %}
+	<div id='app'></div>
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">
 			{{ message }}
@@ -38,7 +40,7 @@
 							<input id="inputEmail"
 								   name="email"
 								   type="email"
-								   value="{{ last_username }}"
+								   value="{{ last_username|default('') }}"
 								   autocomplete="email"
 								   class="form-control"
 								   required

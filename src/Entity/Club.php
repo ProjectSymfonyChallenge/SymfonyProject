@@ -27,7 +27,7 @@ class Club
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'clubs')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $manager = null;
 
     #[ORM\Column(length: 255, nullable: true)]
