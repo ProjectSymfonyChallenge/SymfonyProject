@@ -6,6 +6,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+
  <div class="container">
 		<div class="row">
 			<div class="card">
@@ -18,10 +19,18 @@
                         <div class="mb-3 custom-input">
                             {{ form_label(form.email) }}
                             {{ form_widget(form.email) }}
+                            {% if form_errors(form.email) %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.email.vars.errors %}
+                                        {{ error.message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="mb-3 custom-input">
                             {{ form_label(form.username) }}
                             {{ form_widget(form.username) }}
+                            {{ form_errors(form.username)}}
                         </div>
                         <div class="mb-3 custom-input">
                             {{ form_label(form.password.first) }}
@@ -49,6 +58,5 @@
     </div>
 {% endblock %}
 {% block javascripts %}
-    <script>
-    </script>
+
 {% endblock %}
