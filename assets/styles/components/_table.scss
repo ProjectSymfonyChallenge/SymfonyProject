@@ -1,0 +1,25 @@
+.table-mng {
+
+  th {
+    color: $green-3;
+    font-weight: 400 !important;
+
+    @media (max-width: 1080px) {
+      font-size: 0.90rem;
+    }
+  }
+
+  td {
+    font-size: 0.90rem;
+    vertical-align: middle !important;
+  }
+
+  .btn-link:not(:last-child) {
+    
+    @media (max-width: 1080px) {
+      margin-bottom: 16px !important;
+    }
+
+  }
+
+}

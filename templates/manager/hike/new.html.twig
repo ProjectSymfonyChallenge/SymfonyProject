@@ -3,9 +3,26 @@
 {% block title %}<title>{{'hike.title.add'|trans}}</title>{% endblock %}
 
 {% block body %}
-    <h1>{{'hike.title.add'|trans}}</h1>
 
-    {{ include('manager/hike/_form.html.twig') }}
+    <div class="container-fluid h1-container-mng">
+        <div class="row align-items-center">
+            <div class="col-md-8 col">
+                <h1 class="h1-mng">{{'hike.title.add'|trans}}</h1>
+            </div>
+            <div class="col-md-4 col text-end">
+                <a class="btn-link link-add" href="{{ path('manager_hike_index') }}"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('manager_hike_index') }}">{{ 'hike.btn.back'|trans }}</a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card card-small py-4">
+                <div class="card-body">
+                    {{ include('manager/hike/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

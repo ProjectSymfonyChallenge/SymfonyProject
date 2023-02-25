@@ -1,4 +1,38 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+
+    <div class="mb-3 custom-input">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div class="mb-3 custom-input">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div class="row mb-3 custom-input">
+        <div class="col-md-6">
+            {{ form_label(form.distance) }}
+            {{ form_widget(form.distance) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.duration) }}
+            {{ form_widget(form.duration) }}
+        </div>
+    </div>
+    <div class="row mb-3 custom-input">
+        <div class="col-md-6">
+            {{ form_label(form.effort) }}
+            {{ form_widget(form.effort) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.max_users) }}
+            {{ form_widget(form.max_users) }}
+        </div>
+    </div>
+    <div class="mb-3 custom-input">
+        {{ form_label(form.file) }}
+        {{ form_widget(form.file) }}
+    </div>
+    <div class="custom-input text-end">
+        <button class="btn btn-save">{{ button_label|default('Enregistrer') }}</button>
+    </div>
 {{ form_end(form) }}

@@ -1,0 +1,17 @@
+.container-fluid:not(:first-child) {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card {
+
+  .details {
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+  }
+
+}
