@@ -21,21 +21,17 @@ class DefaultController extends AbstractController
     {
         $apiKey = $params->get('google_maps_api_key');
         $hikes = null;
-        if ($this->getUser()){
-            $hikes = $this->hikeRepository->findAll();
-            $hikesWithAvailability = [];
-            foreach ($hikes as $hike) {
-                $availablePlaces = $hike->getMaxUsers() - count($hike->getBookings());
-                $hikesWithAvailability[] = ['hike' => $hike, 'availablePlaces' => $availablePlaces];
-            }
-            return $this->render('front/default/index.html.twig', [
-                'hikes' => $hikes,
-                'hikesWithAvailability' => $hikesWithAvailability,
-                'google_maps_api_key' => $apiKey
-            ]);
-        }else{
-            return $this->render('front/default/index.html.twig');
+        $hikes = $this->hikeRepository->findAll();
+        $hikesWithAvailability = [];
+        foreach ($hikes as $hike) {
+            $availablePlaces = $hike->getMaxUsers() - count($hike->getBookings());
+            $hikesWithAvailability[] = ['hike' => $hike, 'availablePlaces' => $availablePlaces];
         }
+        return $this->render('front/default/index.html.twig', [
+            'hikes' => $hikes,
+            'hikesWithAvailability' => $hikesWithAvailability,
+            'google_maps_api_key' => $apiKey
+        ]);
     }
 
 }

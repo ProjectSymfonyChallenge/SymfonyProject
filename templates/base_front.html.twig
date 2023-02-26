@@ -10,7 +10,7 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-        {% if google_maps_api_key is defined and app.user is not null %}
+        {% if google_maps_api_key is defined %}
         <script async defer src="{{ asset('https://maps.googleapis.com/maps/api/js?key=' ~ google_maps_api_key ~ '&callback=initMap') }}"></script>
         {% endif %}
     </head>
@@ -69,7 +69,7 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {% if app.user is not null and app.request.attributes.get('_route') == 'front_default_index' %}
+    {% if app.request.attributes.get('_route') == 'front_default_index' %}
         <script>
             window.onload = function() {
                 initMap();
