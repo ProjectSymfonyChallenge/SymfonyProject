@@ -45,8 +45,9 @@
                     <td>{{ club.adresse }}</td>
                     <td>{{ club.createdAt|date('d/m/Y') }}</td>
                     <td>{{ club.updatedAt|date('d/m/Y') }}</td>
-                    <td class="text-end">
+                    <td class="text-end" style="width: 10%">
                         <a class="btn-link link-see" href="{{ path('back_club_show', {'slug': club.slug}) }}"><i class="bi bi-eye-fill"></i></a>
+                        <a class="btn-link link-edit" href="{{ path('back_club_edit', {'slug': club.slug}) }}"><i class="bi bi-pencil-fill"></i></a>
                     </td>
                 </tr>
             {% else %}

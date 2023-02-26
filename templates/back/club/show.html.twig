@@ -18,6 +18,7 @@
     <div class="container-fluid card card-large">
         <div class="row">
             <div class="col d-flex justify-content-end">
+                <a class="btn-link link-edit" href="{{ path('back_club_edit', {'slug': club.slug}) }}">Modifier</a>&nbsp;
                 {{ include('back/club/_delete_form.html.twig') }}
             </div>
         </div>
