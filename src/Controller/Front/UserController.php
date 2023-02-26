@@ -36,11 +36,14 @@ class UserController extends AbstractController
         $this->translation = $translation;
     }
 
-    #[Route('show', name: 'show', methods: ['GET', 'POST'])]
-    public function show(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    #[Route('show/{slug}', name: 'show', methods: ['GET', 'POST'])]
+    public function show(User $user, Request $request, UserPasswordHasherInterface $passwordHasher): Response
     {
+        if ($this->getUser() !== $user) {
+            return $this->redirectToRoute('front_default_index');
+        }
+
         $userPwd = $request->request->get('password');
-        $user = $this->getUser();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid() && $request->isMethod('POST')) {

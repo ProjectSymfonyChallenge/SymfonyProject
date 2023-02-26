@@ -3,7 +3,6 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-
     <section class="zoom">
         <img id="layer1" src="{{ asset('build/images/mountain1.png') }}" alt="picture mountain left">
         <img id="layer2" src="{{ asset('build/images/mountain2.png') }}" alt="picture mountain right">
@@ -15,11 +14,53 @@
             </div>
         </div>
     </section>
-    <section class="content">
-        <h2>Ueee Peak Experience ueee</h2>
-        <p>
-            Atteignez de nouveaux sommets
-        </p>
+    <section id="hikes" class="content bg-white">
+        <div class="container">
+            <div class="row">
+                <hr class="hr1">
+                <hr class="hr2">
+                <hr class="hr3">
+                <p>
+                    Bienvenue sur le site de Peak Experience, le guide ultime pour les amateurs de randonnées ! Nous sommes une communauté de passionnés qui cherchent à partager leur amour pour les randonnées et la nature avec tous les amateurs d'aventure.
+                </p>
+                <p>
+                    Que vous soyez débutant ou randonneur expérimenté, nous avons les randonnées qui vous conviennent. Nous proposons une grande variété de randonnées de différents niveaux de difficulté, allant des promenades paisibles aux treks les plus éprouvants. Nos guides expérimentés vous accompagneront dans chaque étape de votre aventure, en vous faisant découvrir les plus beaux paysages et les sites les plus emblématiques de chaque région.
+                </p>
+                <p>
+                    En rejoignant Peak Experience, vous pourrez non seulement découvrir les plus belles randonnées de votre région, mais également échanger avec d'autres passionnés de la randonnée dans notre forum de discussion. Partagez vos expériences, posez des questions, trouvez des conseils et découvrez de nouvelles randonnées à explorer.
+                </p>
+                <p>
+                    Peak Experience est la solution idéale pour tous ceux qui cherchent à se reconnecter avec la nature, à se défier et à découvrir de nouveaux horizons. Rejoignez notre communauté dès maintenant et laissez-vous porter par la beauté de la randonnée.
+                </p>
+                <hr class="hr3">
+                <hr class="hr2">
+                <hr class="hr1">
+            </div>
+        </div>
     </section>
-    
+    {% if app.user is not null %}
+        <div id="map" style="height: 100vh; width: 50%;float: left"></div>
+
+        {# Display all hikes #}
+
+        <div class="container-hike">
+        {% for hike in hikesWithAvailability %}
+            <div class="card w-100 mt-0" id="{{hike.hike.id}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ hike.hike.name }}</h5>
+                    <p class="card-text">{{ hike.hike.description }}</p>
+                    <a href="{{ path('front_hike_show', {'slug': hike.hike.slug}) }}" class="btn btn-primary">Voir</a>
+                    {% if app.user %}
+                        {% if hike.availablePlaces > 0 %}
+                            <a href="{{ path('front_booking_new', {'slug': hike.hike.slug}) }}" class="btn btn-primary">{{ 'booking.btn.book'|trans }}</a>
+                            <p>Il reste {{ hike.availablePlaces }} places.</p>
+                        {% else %}
+                            <a href="{{ path('front_booking_new', {'slug': hike.hike.slug}) }}" class="btn btn-danger disabled">{{ 'booking.btn.no_available_place'|trans }}</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}

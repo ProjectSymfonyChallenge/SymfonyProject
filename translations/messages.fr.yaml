@@ -6,6 +6,8 @@ nav:
   profile: 'Profil'
   home: 'Accueil'
 form:
+  message:
+    password: 'Votre mot de passe doit comporter au moins 8 caractères et contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
   title:
     register: 'S''inscrire'
     edit: 'Modifier votre profil'
@@ -69,3 +71,27 @@ hike:
     image: 'Image'
     no_hike: 'Aucune randonnée'
     no_image: 'Aucune image pour cette randonnée'
+    price: 'Prix :'
+
+booking:
+  title:
+    list: 'Liste des réservations'
+    show: 'Détails de la réservation'
+    add: 'Ajouter une réservation'
+    edit: 'Modifier une réservation'
+  label:
+    hike_date: 'Date de la randonnée :'
+    hike_name: 'Nom de la randonnée :'
+    price: 'Prix :'
+    remaining_place: "Il reste {count} places"
+    already_booked: "Vous avez déjà une réservation pour cette date"
+    no_identity: "Vous devez ajouter votre prénom et nom pour pouvoir réserver"
+    booking_recap: 'Récapitulatif de votre réservation'
+    locality: 'Lieu de la randonnée :'
+    locality_department: 'Département :'
+    locality_region: 'Région :'
+  btn:
+    hike_show: 'Voir la randonnée'
+    book: 'Réserver'
+    no_available_place: 'Aucune place disponible'
+    pdf: 'Voir mon récapitulatif'
