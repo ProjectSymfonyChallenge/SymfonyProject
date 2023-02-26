@@ -12,7 +12,9 @@
                 </div>
                 <div class="card-body">
                     {{ form_start(form, {attr:{"id":"form-register", "method":"post" }}) }}
-                        {{ form_row(form._token) }}
+                    {{ form_errors(form) }}
+
+                    {{ form_row(form._token) }}
                         <div class="mb-3 custom-input">
                             {{ form_label(form.email) }}
                             {{ form_widget(form.email) }}
@@ -32,6 +34,9 @@
                         <div class="mb-3 custom-input">
                             {{ form_label(form.password.first) }}
                             {{ form_widget(form.password.first) }}
+                            {% if form.password.first.vars.errors|length > 0 %}
+                                <div class="alert alert-danger">{{ form_errors(form.password.first) }}</div>
+                            {% endif %}
                         </div>
                         <div class="mb-3 custom-input">
                             {{ form_label(form.password.second) }}

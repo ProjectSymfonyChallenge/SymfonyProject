@@ -12,10 +12,12 @@
 @import "components/_table";
 @import "components/_title";
 
+@import "layout/_description";
 @import "layout/_footer";
 @import "layout/_header";
 @import "layout/_navbar";
 @import "layout/_parallax.scss";
+@import "layout/_search-hike.scss";
 
 @import "pages/_hike";
 @import "pages/_login";

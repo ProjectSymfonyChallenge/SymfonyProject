@@ -36,4 +36,21 @@ a {
     }
   }
 
+  &.link-info {
+    padding: 0.25rem 0.50rem;
+    background-color: $green-4;
+    color: white !important;
+
+    &:hover, &:focus {
+      background-color: $green-3;
+    }
+  }
+
+  &.link-disabled {
+    padding: 0.25rem 0.50rem !important;
+    background-color: $grey;
+    color: white;
+    cursor: default;
+  }
+
 }

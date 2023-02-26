@@ -1,0 +1,97 @@
+{% include "base_front.html.twig" %}
+
+{% block title %}<title>{{'booking.title.add'|trans}}</title>{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid h1-container-mng">
+        <div class="row align-items-center">
+            <div class="col-md-8 col">
+                <h1 class="h1-mng">{{'booking.title.add'|trans}}</h1>
+            </div>
+            <div class="col-md-4 col text-end">
+                <a class="btn-link link-add" href="{{ path('front_default_index') }}#hikes"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid card card-large w-50">
+        <div class="row align-items-center details">
+            <div class="col">
+                {% for message in app.flashes('danger') %}
+                    <div class="alert alert-danger">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <table class="table table-mng table-details">
+                    <tbody>
+                    <tr>
+                        <th>{{'booking.label.price'|trans}}</th>
+                        <td>{{ price }} €</td>
+                    </tr>
+                    <tr>
+                        <th>{{'hike.label.capacity'|trans}}</th>
+                        <td>{{ hike.maxUsers ~ ' personne(s)'}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'hike.label.duration'|trans}}</th>
+                        <td>{{ hike.duration ? hike.duration|date('H:i') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'hike.label.difficulty'|trans}}</th>
+                        <td>{{ hike.effort }} / 10</td>
+                    </tr>
+                    <tr>
+                        <th>{{'hike.label.name'|trans}}</th>
+                        <td>{{ hike.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'hike.label.description'|trans}}</th>
+                        <td>{{ hike.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</th>
+                        <td>{{ 'booking.label.locality'|trans }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                {{ include('front/booking/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    var stripe = Stripe('pk_test_tb3VmhJ9Q6uMhr7QdrXtIjMP00q0X2NFZo');
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    var clientSecret = document.getElementById('payment-form').querySelector('[name="client_secret"]').value;
+
+    cardElement.mount('#card-element');
+
+    var cardErrors = document.getElementById('card-errors');
+    var submitButton = document.getElementById('submit');
+
+    submitButton.addEventListener('click', function(ev) {
+        ev.preventDefault();
+
+        stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: cardElement,
+            }
+        }).then(function(result) {
+            if (result.error) {
+                // Show error to your customer
+                cardErrors.textContent = result.error.message;
+            } else {
+                // The payment has been processed
+                // Submit the form to the server to complete the order
+                document.getElementById('payment-form').submit();
+            }
+        });
+    });
+</script>
+{% endblock %}
