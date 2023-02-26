@@ -27,7 +27,7 @@ class Membership
         return $this->id;
     }
 
-    public function getUser(): string
+    public function getUser(): ?User
     {
         return $this->user;
     }
@@ -39,7 +39,7 @@ class Membership
         return $this;
     }
 
-    public function getClub(): string
+    public function getClub(): ?Club
     {
         return $this->club;
     }

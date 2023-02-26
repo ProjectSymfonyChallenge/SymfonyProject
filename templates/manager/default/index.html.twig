@@ -1,6 +1,5 @@
 {% extends 'base_manager.html.twig' %}
 {% block body %}
-    {% set sessionOwnerId = app.user.id %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -17,22 +16,21 @@
                     <tbody>
                     {% for user in users %}
                         {% if 'ROLE_GUIDE' in user.roles %}
-
-                        <tr>
+                            <tr>
                             <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{dump(user)}}</td>
-                            {% if user.memberships.isEmpty() %}
-                                <td>
-                                    <a href="{{ path('manager_add_guide', {'id': user.id}) }}" class="btn btn-primary">invite</a>
-                                </td>
-                            {% else %}
-                                <td>
-                                <a href="{{ path('manager_delete_guide', {'id': user.id}) }}" class="btn btn-primary">Delete</a>
-                                </td>
-                            {% endif %}
-                        {%endif %}
+                            <td>{{ dump(user) }}</td>
+                                {% if user in vipusers %}
+                                    <td>
+                                        <a href="{{ path('manager_delete_guide', {'id': user.id}) }}" class="btn btn-primary">Delete</a>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <a href="{{ path('manager_add_guide', {'id': user.id}) }}" class="btn btn-primary">Invite</a>
+                                    </td>
+                                {% endif %}
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
