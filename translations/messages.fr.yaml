@@ -73,7 +73,7 @@ hike:
 
 booking:
   title:
-    list: 'Liste des réservations'
+    list: 'Mes réservations'
     show: 'Détails de la réservation'
     add: 'Ajouter une réservation'
     edit: 'Modifier une réservation'
@@ -88,7 +88,11 @@ booking:
     locality: 'Lieu de la randonnée :'
     locality_department: 'Département :'
     locality_region: 'Région :'
+    no_records_found: 'Aucune réservation'
+    actions: 'Actions'
   btn:
+    show: 'Voir'
+    delete: 'Supprimer'
     hike_show: 'Voir la randonnée'
     book: 'Réserver'
     no_available_place: 'Aucune place disponible'

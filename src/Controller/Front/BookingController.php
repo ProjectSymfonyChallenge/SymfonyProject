@@ -32,6 +32,16 @@ class BookingController extends AbstractController
         $this->translator = $translator;
     }
 
+    #[Route('/', name: 'index', methods: ['GET'])]
+    public function index(): Response
+    {
+        $bookings = $this->bookingRepository->findBy(['user' => $this->getUser()]);
+
+        return $this->render('front/booking/index.html.twig', [
+            'bookings' => $bookings,
+        ]);
+    }
+
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Booking $booking): Response
     {
@@ -44,6 +54,20 @@ class BookingController extends AbstractController
             'hike' => $hike,
             'payment' => $payment,
         ]);
+    }
+
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
+    public function delete(Request $request, Booking $booking, BookingRepository $bookingRepository): Response
+    {
+        if ($this->getUser() !== $booking->getUser()) {
+            return $this->redirectToRoute('front_default_index');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$booking->getId(), $request->request->get('_token'))) {
+            $bookingRepository->remove($booking, true);
+        }
+
+        return $this->redirectToRoute('front_booking_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/pdf', name: 'pdf', methods: ['GET'])]
