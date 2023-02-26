@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,9 +45,6 @@ class RegisterType extends AbstractType
                     'attr' => [
                         'class' => 'form-control',
                     ],
-
-                  //  'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-                  //  'message' => 'form.message.password',
                 ],
                 'second_options' => [
                     'label' => 'form.label.cpassword',
@@ -57,6 +56,17 @@ class RegisterType extends AbstractType
                 'form_attr' => true,
                 'mapped' => true,
                 'required' => true,
+                'constraints' => [
+                    new Callback([
+                        'callback' => function ($password, ExecutionContextInterface $context) {
+                            $regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
+                            if (!preg_match($regex, $password)) {
+                                $context->buildViolation('Votre mot de passe doit comporter au moins 8 caractères et contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial')
+                                    ->addViolation();
+                            }
+                        },
+                    ]),
+                ],
             ])
             ;
     }
