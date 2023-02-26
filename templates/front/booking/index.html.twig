@@ -1,0 +1,42 @@
+{% include "base_front.html.twig" %}
+
+{% block title %}<title>{{'booking.title.list'|trans}}</title>{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{'booking.title.list'|trans}}</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>{{'hike.label.name'|trans}}</th>
+                            <th>{{'booking.label.locality'|trans}}</th>
+                            <th>{{'booking.label.hike_date'|trans}}</th>
+                            <th>{{'booking.label.price'|trans}}</th>
+                            <th>{{'booking.label.actions'|trans}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.hike.name }}</td>
+                                <td>{{ booking.hike.locality.department ~ ' (' ~ booking.hike.locality.region ~ ')' }}</td>
+                                <td>{{ booking.hikeDate|date('d/m/Y H:i') }}</td>
+                                <td>{{ booking.payment.price }} €</td>
+                                <td>
+                                    <a href="{{ path('front_booking_show', {'id': booking.id}) }}" class="btn btn-primary">{{'booking.btn.show'|trans}}</a>
+                                    {{ include('front/booking/_delete_form.html.twig') }}
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="8">{{'booking.label.no_records_found'|trans}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
