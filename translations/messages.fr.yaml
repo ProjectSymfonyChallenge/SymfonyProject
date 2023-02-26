@@ -93,5 +93,5 @@ booking:
   btn:
     hike_show: 'Voir la randonnée'
     book: 'Réserver'
-    no_available_place: 'Aucune place disponible'
+    no_available_place: 'Complet'
     pdf: 'Voir mon récapitulatif'
