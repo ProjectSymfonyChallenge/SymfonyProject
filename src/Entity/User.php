@@ -69,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Level $level = null;
 
-    #[ORM\OneToMany(mappedBy: 'manager', targetEntity: Club::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'manager', targetEntity: Club::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $clubs;
 
     //memberships

@@ -1,16 +1,16 @@
 {% extends 'base_back.html.twig' %}
 
-{% block title %}Modifier l'utilisateur{% endblock %}
+{% block title %}Modifier le club{% endblock %}
 
 {% block body %}
 
     <div class="container-fluid h1-container-mng">
         <div class="row align-items-center">
             <div class="col-md-8 col">
-                <h1 class="h1-mng">Modifier l'utilisateur</h1>
+                <h1 class="h1-mng">{{'club.title.edit'|trans}}</h1>
             </div>
             <div class="col-md-4 col d-flex justify-content-end edit">
-                <a class="btn-link link-add" href="{{ path('back_user_index') }}"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
+                <a class="btn-link link-add" href="{{ path('back_club_index') }}"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
             </div>
         </div>
     </div>
@@ -19,10 +19,12 @@
         <div class="row">
             <div class="card card-small py-4">
                 <div class="card-body">
-                    {% include 'back/user/_form.html.twig' with {'btnValue': 'Modifier'} %}                </div>
+                    {% include 'back/club/_form.html.twig' with {'btnValue': 'Modifier'} %}
+                </div>
             </div>
         </div>
     </div>
 
-    {{ include('back/user/_delete_form.html.twig') }}
+    {{ include('back/club/_delete_form.html.twig') }}
+
 {% endblock %}

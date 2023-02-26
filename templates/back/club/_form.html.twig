@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="mb-3 custom-input">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+    </div>
+    <div class="mb-3 custom-input">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+    </div>
+    <div class="mb-3 custom-input">
+        {{ form_label(form.adresse) }}
+        {{ form_widget(form.adresse) }}
+    </div>
+    <div class="mb-3 custom-input">
+        {{ form_label(form.manager) }}
+        {{ form_widget(form.manager) }}
+    </div>
+    <input class="btn-link link-edit" type="submit" value="{{ btnValue }}">
+{{ form_end(form) }}

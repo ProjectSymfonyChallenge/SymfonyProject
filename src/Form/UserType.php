@@ -21,9 +21,16 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             ->add('firstname', null, [
+                'label' => 'Prénom',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'required' => false,
             ])
             ->add('lastname', null, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'required' => false,
             ])
             ->add('username')

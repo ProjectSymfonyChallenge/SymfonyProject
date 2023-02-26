@@ -3,60 +3,76 @@
 {% block title %}Affichage des utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ user.slug }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Localité</th>
-                <td>{{  user.locality.department ~ ' : ' ~ user.locality.region }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ user.status ? 'Actif' : 'Inactif' }}</td>
-            </tr>
-            <tr>
-                <th>Date de création</th>
-                <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date de modification</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container-fluid h1-container-mng">
+        <div class="row align-items-center">
+            <div class="col-md-8 col">
+                <h1 class="h1-mng">Détails de l'utilisateur</h1>
+            </div>
+            <div class="col-md-4 col text-end">
+                <a class="btn-link link-add" href="{{ path('back_user_index') }}"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
+            </div>
+        </div>
+    </div>
 
-    <a href="{{ path('back_user_index') }}">back to list</a>
+    <div class="container-fluid card card-large">
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                <a class="btn-link link-edit" href="{{ path('back_user_edit', {'slug': user.slug}) }}">Modifier</a>
+                &nbsp;
+                {{ include('back/user/_delete_form.html.twig') }}
+            </div>
+        </div>
+        <div class="row align-items-center details">
+            <table class="table table-mng table-details">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ user.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Slug</th>
+                        <td>{{ user.slug }}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lastname</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Localité</th>
+                        <td>{{  user.locality.department ~ ' : ' ~ user.locality.region }}</td>
+                    </tr>
+                    <tr>
+                        <th>Roles</th>
+                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>{{ user.status ? 'Actif' : 'Inactif' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de modification</th>
+                        <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <a href="{{ path('back_user_edit', {'slug': user.slug}) }}">edit</a>
-
-    {{ include('back/user/_delete_form.html.twig') }}
 {% endblock %}
