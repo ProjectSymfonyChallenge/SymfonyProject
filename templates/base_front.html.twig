@@ -71,6 +71,7 @@
                 initMap();
             };
             function initMap() {
+
                 var previousInfoWindow = null;
 
                 let map = new google.maps.Map(document.getElementById('map'), {
@@ -83,6 +84,7 @@
                 new google.maps.Marker({
                     position: {lat: {{ hike.latitude }}, lng: {{ hike.longitude }}},
                     map: map,
+                    id: {{ hike.id }},
 
                 }).addListener('click', function() {
                     if (previousInfoWindow) {
@@ -93,6 +95,10 @@
                     });
                     infowindow.open(map, this);
                     previousInfoWindow = infowindow;
+                    var hikeId = this.id;
+                    var hikeElement = document.getElementById(hikeId);
+                    console.log(hikeElement , hikeId)
+                    hikeElement.scrollIntoView({ behavior: 'smooth' });
                 });
                 {% endfor %}
             }

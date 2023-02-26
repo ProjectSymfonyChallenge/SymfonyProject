@@ -45,7 +45,7 @@
 
         <div class="container-hike">
         {% for hike in hikesWithAvailability %}
-            <div class="card w-100 mt-0 ">
+            <div class="card w-100 mt-0" id="{{hike.hike.id}}">
                 <div class="card-body">
                     <h5 class="card-title">{{ hike.hike.name }}</h5>
                     <p class="card-text">{{ hike.hike.description }}</p>
