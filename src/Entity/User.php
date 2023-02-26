@@ -34,7 +34,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Email obligatoire')]
     private ?string $email = null;
 
-    #[ORM\Column (type:"string", length: 255)]
+    #[ORM\Column]
     private array $roles = [];
 
     /**
@@ -258,7 +258,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeMembership(Membership $membership): self
     {
         if ($this->memberships->removeElement($membership)) {
-            if ($membership->getUser() === $this) {
+            if ($membership->getUser() == $this) {
                 $membership->setUser(null);
             }
         }

@@ -1,9 +1,10 @@
 {% extends 'base_manager.html.twig' %}
 {% block body %}
+    {% set sessionOwnerId = app.user.id %}
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>ManagerTESTEST</h1>
+                <h1>Gestionnaire des guides</h1>
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -11,22 +12,37 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Roles</th>
-                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for user in users %}
+                        {% if 'ROLE_GUIDE' in user.roles %}
+
                         <tr>
                             <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.roles|json_encode|replace({'["ROLE_':'','"]':''}) }}</td>
-
-                        </tr>
+                            <td>{{dump(user)}}</td>
+                            {% if user.memberships.isEmpty() %}
+                                <td>
+                                    <a href="{{ path('manager_add_guide', {'id': user.id}) }}" class="btn btn-primary">invite</a>
+                                </td>
+                            {% else %}
+                                <td>
+                                <a href="{{ path('manager_delete_guide', {'id': user.id}) }}" class="btn btn-primary">Delete</a>
+                                </td>
+                            {% endif %}
+                        {%endif %}
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    {% if app.request.get('success') %}
+        <script>
+            alert("Invitation sent to {{ app.request.get('success') }}");
+            history.replaceState(null, null, window.location.pathname);
+        </script>
+    {% endif %}
 {% endblock %}

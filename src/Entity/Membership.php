@@ -16,11 +16,11 @@ class Membership
 
     #[ORM\ManyToOne(targetEntity: User::class,inversedBy: 'memberships')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?string $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: Club::class,inversedBy: 'memberships')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?string $club = null;
+    private ?Club $club = null;
 
     public function getId(): ?int
     {
