@@ -69,11 +69,9 @@ class DefaultController extends AbstractController
         $userToken = $user->getToken();
         $result =$this->emailing->sendEmailing([$userEmail], 2, $userToken, $club);
 
-        $this->addFlash('success', 'Invitation sent to '.$userEmail);
         return $this->redirectToRoute('manager_default_index',['success' => $userEmail]);
 
         } else {
-            $this->addFlash('error', 'You are not associated with any club');
             return $this->redirectToRoute('manager_default_index');
       }
 
@@ -94,14 +92,12 @@ class DefaultController extends AbstractController
         //compare $user with vipusers
         $membership = $this->MembershipRepository->findOneBy(['user' => $user, 'club' => $this->getUser()->getClubs()->first()]);
         if (!$membership) {
-            $this->addFlash('error', 'This user is not a guide associated to your club');
             return $this->redirectToRoute('manager_default_index');
         }
 
         $this->entityManager->remove($membership);
         $this->entityManager->flush();
 
-        $this->addFlash('success', 'Guide deleted from club');
         return $this->redirectToRoute('manager_default_index');
     }
 
