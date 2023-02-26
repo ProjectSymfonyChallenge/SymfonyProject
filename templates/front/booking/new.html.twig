@@ -35,6 +35,10 @@
                 <th>{{'hike.label.description'|trans}}</th>
                 <td>{{ hike.description }}</td>
             </tr>
+            <tr>
+                <th>{{ 'booking.label.locality'|trans }}</th>
+                <td>{{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</td>
+            </tr>
         </tbody>
     </table>
 

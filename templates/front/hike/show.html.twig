@@ -59,6 +59,10 @@
                 <td>{{ hike.description }}</td>
             </tr>
             <tr>
+                <th>{{ 'booking.label.locality'|trans }}</th>
+                <td>{{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</td>
+            </tr>
+            <tr>
                 <th>{{ 'hike.label.distance'|trans }}</th>
                 <td>{{ hike.distance ~ 'Km' }}</td>
             </tr>
@@ -85,14 +89,6 @@
             <tr>
                 <th>{{ 'hike.label.average_duration'|trans }}</th>
                 <td>{{ averageDuration|default('Pas d\'évaluations') }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'hike.label.created_at'|trans }}</th>
-                <td>{{ hike.createdAt ? hike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>{{ 'hike.label.updated_at'|trans }}</th>
-                <td>{{ hike.updatedAt ? hike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

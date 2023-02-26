@@ -26,5 +26,6 @@
     <p>{{ hike.description }}</p>
     <p>Date : {{ booking.hikeDate|date('d/m/Y à H:i') }}</p>
     <p>Prix total : {{ payment.price }} €</p>
+    <p>{{ 'booking.label.locality'|trans }} {{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</p>
 </body>
 </html>

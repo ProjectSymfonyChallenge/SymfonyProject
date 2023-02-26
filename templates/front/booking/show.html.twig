@@ -19,6 +19,10 @@
                 <th>{{'booking.label.hike_name'|trans}}</th>
                 <td>{{ hike.name }}</td>
             </tr>
+            <tr>
+                <th>{{ 'booking.label.locality'|trans }}</th>
+                <td>{{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</td>
+            </tr>
         </tbody>
     </table>
     <a class="btn btn-primary" target="_blank" href="{{ path('front_booking_pdf', {'id': booking.id}) }}">{{'booking.btn.pdf'|trans}}</a>

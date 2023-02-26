@@ -85,6 +85,9 @@ booking:
     already_booked: "Vous avez déjà une réservation pour cette date"
     no_identity: "Vous devez ajouter votre prénom et nom pour pouvoir réserver"
     booking_recap: 'Récapitulatif de votre réservation'
+    locality: 'Lieu de la randonnée :'
+    locality_department: 'Département :'
+    locality_region: 'Région :'
   btn:
     hike_show: 'Voir la randonnée'
     book: 'Réserver'
