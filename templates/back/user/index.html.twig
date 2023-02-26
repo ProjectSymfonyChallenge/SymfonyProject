@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="container-fluid card card-large">
-		<table class="table table-striped table-mng" id="datatables">
+		<table class="table table-striped table-mng" id="table-users">
 			<thead>
 				<tr>
 					<th>Id</th>
@@ -29,7 +29,7 @@
 					<th>Statut</th>
 					<th>Date de création</th>
 					<th>Date de modification</th>
-					<th class="text-end">actions</th>
+					<th class="text-end">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -61,7 +61,7 @@
 		{{ parent() }}
 		<script>
 			$(document).ready(function() {
-				$('#datatables').DataTable();
+				$('#table-users').DataTable();
 			} );
 		</script>
 	{% endblock %}

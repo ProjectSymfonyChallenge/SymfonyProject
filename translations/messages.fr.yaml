@@ -34,6 +34,7 @@ navbar:
   logout: 'Déconnexion'
   user: 'Gestion des utilisateurs'
   hike: 'Gestion des randonnées'
+  club: 'Gestion des clubs'
 
 hike:
   title:
@@ -69,3 +70,23 @@ hike:
     image: 'Image'
     no_hike: 'Aucune randonnée'
     no_image: 'Aucune image pour cette randonnée'
+
+club:
+    title:
+        list: 'Liste des clubs'
+        show: 'Détails du club'
+        add: 'Ajouter un club'
+        edit: 'Modifier un club'
+    label:
+        id: 'ID'
+        manager: 'Gérant'
+        name: 'Nom'
+        description: 'Description'
+        address: 'Adresse'
+        slug: 'Slug'
+        created_at: 'Créé le'
+        updated_at: 'Modifié le'
+        actions: 'Actions'
+        no_club: 'Aucun club trouvé'
+    msg:
+        delete: 'Êtes-vous sûr de vouloir supprimer ce club ?'

@@ -1,0 +1,4 @@
+<form method="post"  action="{{ path('back_club_delete', {'slug': club.slug}) }}" onsubmit="return confirm({{ 'club.msg.delete'|trans }});">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ club.id) }}">
+    <button class="btn-delete other">Supprimer</button>
+</form>

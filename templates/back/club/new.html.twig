@@ -1,0 +1,11 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %} {{'club.title.add'|trans}} {% endblock %}
+
+{% block body %}
+    <h1>{{'club.title.add'|trans}}</h1>
+
+    {% include 'back/club/_form.html.twig' with {'btnValue': 'Créer'} %}
+
+    <a href="{{ path('back_club_index') }}">Retour</a>
+{% endblock %}

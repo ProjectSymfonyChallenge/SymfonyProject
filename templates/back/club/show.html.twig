@@ -1,0 +1,66 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}{{'club.title.show'|trans}}{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid h1-container-mng">
+        <div class="row align-items-center">
+            <div class="col-md-8 col">
+                <h1 class="h1-mng">{{'club.title.show'|trans}}</h1>
+            </div>
+            <div class="col-md-4 col text-end">
+                <a class="btn-link link-add" href="{{ path('back_club_index') }}"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid card card-large">
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+                {{ include('back/club/_delete_form.html.twig') }}
+            </div>
+        </div>
+        <div class="row align-items-center details">
+            <table class="table table-mng table-details">
+                <tbody>
+                    <tr>
+                        <th>{{'club.label.id'|trans}}</th>
+                        <td>{{ club.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.name'|trans}}</th>
+                        <td>{{ club.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.description'|trans}}</th>
+                        <td>{{ club.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.manager'|trans}}</th>
+                        <td>
+                            {{ club.manager.firstname }}
+                            {{ club.manager.lastname }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.description'|trans}}</th>
+                        <td>{{ club.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.address'|trans}}</th>
+                        <td>{{ club.adresse }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.created_at'|trans}}</th>
+                        <td>{{ club.createdAt ? club.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'club.label.updated_at'|trans}}</th>
+                        <td>{{ club.updatedAt ? club.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

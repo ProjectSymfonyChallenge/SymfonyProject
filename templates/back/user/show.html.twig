@@ -25,53 +25,53 @@
         </div>
         <div class="row align-items-center details">
             <table class="table table-mng table-details">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ user.slug }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Localité</th>
-                <td>{{  user.locality.department ~ ' : ' ~ user.locality.region }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Statut</th>
-                <td>{{ user.status ? 'Actif' : 'Inactif' }}</td>
-            </tr>
-            <tr>
-                <th>Date de création</th>
-                <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date de modification</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ user.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td>{{ user.username }}</td>
+                    </tr>
+                    <tr>
+                        <th>Slug</th>
+                        <td>{{ user.slug }}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lastname</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Localité</th>
+                        <td>{{  user.locality.department ~ ' : ' ~ user.locality.region }}</td>
+                    </tr>
+                    <tr>
+                        <th>Roles</th>
+                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>{{ user.status ? 'Actif' : 'Inactif' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de création</th>
+                        <td>{{ user.createdAt ? user.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de modification</th>
+                        <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
