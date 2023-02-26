@@ -28,10 +28,16 @@ class HikeType extends AbstractType
         $builder
             ->add('name', null, [
                 'label' => $this->translator->trans('hike.label.name'),
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'required' => true,
             ])
             ->add('description', TextType::class, [
                 'label' => $this->translator->trans('hike.label.description'),
+                'attr' => [
+                    'class' => 'form-control',
+                ],
                 'required' => true,
             ])
             ->add('file', FileType::class, [
@@ -40,6 +46,7 @@ class HikeType extends AbstractType
                 'required' => false,
                 'multiple' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'accept' => 'image/*',
                     'multiple' => 'multiple',
                 ],
@@ -49,12 +56,16 @@ class HikeType extends AbstractType
                 'label' => $this->translator->trans('hike.label.distance_form'),
                 'required' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'min' => 1,
                     'max' => 100,
                 ],
             ])
             ->add('duration', TimeType::class, [
                 'label' => $this->translator->trans('hike.label.duration_form'),
+                'attr' => [
+                    'class' => 'time-select',
+                ],
                 'required' => true,
                 'input'  => 'datetime',
                 'widget' => 'choice',
@@ -63,14 +74,16 @@ class HikeType extends AbstractType
                 'label' => $this->translator->trans('hike.label.difficulty_form'),
                 'required' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'min' => 1,
                     'max' => 10,
                 ],
             ])
             ->add('max_users', IntegerType::class, [
-                'label' => $this->translator->trans('hike.label.max_user'),
+                'label' => $this->translator->trans('hike.label.capacity'),
                 'required' => true,
                 'attr' => [
+                    'class' => 'form-control',
                     'min' => 1,
                     'max' => 40,
                 ],

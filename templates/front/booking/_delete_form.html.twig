@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('front_booking_delete', {'id': booking.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre réservation');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ booking.id) }}">
+    <button class="btn-delete other">{{ 'booking.btn.delete'|trans }}</button>
+</form>

@@ -3,10 +3,12 @@ $green-2 : #92C119;
 $green-3 : #51B15D;
 $green-4 : #035D45;
 
-$green-gradient : linear-gradient(90deg, rgba(183,217,67,1) 0%, rgba(81,177,93,1) 100%);
+$green-gradient : linear-gradient(90deg, $green-1 0%, $green-3 100%);
+$green-gradient2 : linear-gradient(90deg, $green-2 0%, $green-4 100%);
 
 $opposite-1 : #FF7701;
 $opposite-2 : #FF5811;
+$opposite-3 : #FF1C2E;
 
 $contrast : #262626;
 
@@ -14,5 +16,6 @@ $grey: #797979;
 
 $box-shadow : 2px 4px 10px rgba(55, 55, 55, 0.25);
 $box-shadow-bottom : rgba(0, 0, 0, 0.25) 0px 0px 8px;
+$box-shadow-left : -10px -5px 10px -10px rgb(0, 0, 0, 0.25);
 
-
+$text-shadow-black: 0 0 10px rgb(0, 0, 0);

@@ -1,13 +1,24 @@
 @import "./node_modules/bootstrap/scss/bootstrap";
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+@import "abstracts/_variables";
 
 @import "base/_base";
 
 @import "components/_button";
 @import "components/_card";
 @import "components/_input";
+@import "components/_link";
+@import "components/_table";
+@import "components/_title";
 
+@import "layout/_description";
 @import "layout/_footer";
 @import "layout/_header";
 @import "layout/_navbar";
+@import "layout/_parallax.scss";
+@import "layout/_search-hike.scss";
 
+@import "pages/_hike";
 @import "pages/_login";
+@import "pages/_register";
