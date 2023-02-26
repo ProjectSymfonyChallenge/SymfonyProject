@@ -69,7 +69,7 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
-    {% if app.user is not null and app.request.uri == path('front_default_index') %}
+    {% if app.user is not null and app.request.attributes.get('_route') == 'front_default_index' %}
         <script>
             window.onload = function() {
                 initMap();
