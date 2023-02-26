@@ -20,7 +20,6 @@
                             <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ dump(user) }}</td>
                                 {% if user in vipusers %}
                                     <td>
                                         <a href="{{ path('manager_delete_guide', {'id': user.id}) }}" class="btn btn-primary">Delete</a>
