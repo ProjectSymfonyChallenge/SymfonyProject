@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Club;
+use App\Entity\Membership;
 use App\Entity\User;
 use App\Form\RegisterType;
+use App\Repository\ClubRepository;
 use App\Repository\LevelRepository;
 use App\Repository\UserRepository;
 use App\Service\Emailing;
@@ -25,9 +28,12 @@ class SecurityController extends AbstractController
     private Emailing $emailing;
     private LevelRepository $levelRepository;
     private TranslatorInterface $translation;
+    private ClubRepository $clubRepository;
+
     public function __construct(
         EntityManagerInterface $entityManager,
         UserRepository $userRepository,
+        ClubRepository $clubRepository,
         LevelRepository $levelRepository,
         Emailing $emailing,
         TranslatorInterface $translation
@@ -35,6 +41,7 @@ class SecurityController extends AbstractController
     {
         $this->entityManager = $entityManager;
         $this->userRepository = $userRepository;
+        $this->clubRepository = $clubRepository;
         $this->levelRepository = $levelRepository;
         $this->emailing = $emailing;
         $this->translation = $translation;
@@ -81,9 +88,10 @@ class SecurityController extends AbstractController
             $user->setStatus(0);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+            $club = null;
             $userEmail = $user->getEmail();
             $userToken = $user->getToken();
-            $result = $this->emailing->sendEmailing([$userEmail], 1, $userToken);
+            $result = $this->emailing->sendEmailing([$userEmail], 1, $userToken, $club);
             $this->addFlash('success', $this->translation-> trans("form.success"));
             return $this->redirectToRoute("app_login");
         }
@@ -108,6 +116,26 @@ class SecurityController extends AbstractController
             if ($user->getToken() == $tokenUser){
                 $user->setStatus(1);
                 $user->setToken(null);
+                $this->entityManager->flush();
+            }
+        }
+        return $this->redirectToRoute("app_login");
+    }
+    #[Route('/add_membership', name: 'add_membership', methods: ['GET'])]
+    public function addMembership(Request $request): Response
+    {
+        $membership = new Membership();
+        $tokenUser = $request->query->get('token');
+        $emailUser = $request->query->get('email');
+        $clubId = $request->query->get('club');
+        if (!isset($token)){
+            $user = $this->userRepository->findOneBy(['email' => $emailUser]);
+            if ($user->getToken() == $tokenUser && $user->isStatus() == 1){
+                $user->setToken(null);
+                $club = $this->clubRepository->find($clubId);
+                $membership->setUser($user);
+                $membership->setClub($club);
+                $this->entityManager->persist($membership);
                 $this->entityManager->flush();
             }
         }

@@ -36,6 +36,9 @@ class Club
     #[ORM\OneToMany(mappedBy: 'club', targetEntity: Hike::class, orphanRemoval: true)]
     private Collection $hikes;
 
+    #[ORM\OneToMany(mappedBy: 'club', targetEntity: Membership::class)]
+    private Collection $memberships;
+
     #[ORM\OneToMany(mappedBy: 'club', targetEntity: Picture::class)]
     private Collection $pictures;
 
@@ -47,6 +50,7 @@ class Club
     {
         $this->hikes = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->memberships = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,6 +136,34 @@ class Club
         return $this;
     }
 
+    /**
+     * @return Collection<int, Hike>
+     */
+    public function getMemberships(): Collection
+    {
+        return $this->memberships;
+    }
+
+    public function addMembership(Membership $membership): self
+    {
+        if (!$this->memberships->contains($membership)) {
+            $this->memberships->add($membership);
+            $membership->setClub($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMembership(Membership $membership): self
+    {
+        if ($this->memberships->removeElement($membership)) {
+            if ($membership->getClub() === $this) {
+                $membership->setClub(null);
+            }
+        }
+
+        return $this;
+    }
     /**
      * @return Collection<int, Picture>
      */

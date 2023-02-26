@@ -1,7 +1,45 @@
 {% extends 'base_manager.html.twig' %}
-
-{% block title %}Accueil{% endblock %}
-
 {% block body %}
-    Page d'accueil
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Gestionnaire des guides</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        {% if 'ROLE_GUIDE' in user.roles %}
+                            <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                                {% if user in vipusers %}
+                                    <td>
+                                        <a href="{{ path('manager_delete_guide', {'id': user.id}) }}" class="btn btn-primary">Delete</a>
+                                    </td>
+                                {% else %}
+                                    <td>
+                                        <a href="{{ path('manager_add_guide', {'id': user.id}) }}" class="btn btn-primary">Invite</a>
+                                    </td>
+                                {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% if app.request.get('success') %}
+        <script>
+            alert("Invitation sent to {{ app.request.get('success') }}");
+            history.replaceState(null, null, window.location.pathname);
+        </script>
+    {% endif %}
 {% endblock %}

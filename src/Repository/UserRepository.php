@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Entity\Membership;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -56,7 +57,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
-//    /**
+    public function findUserByMembershipId(int $clubId, int $managerId): array
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->join('u.memberships', 'm')
+            ->join('m.club', 'c')
+            ->where('c.id = :clubId')
+            ->andWhere('c.manager = :managerId')
+            ->setParameter('clubId', $clubId)
+            ->setParameter('managerId', $managerId);
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    //    /**
 //     * @return User[] Returns an array of User objects
 //     */
 //    public function findByExampleField($value): array
