@@ -1,0 +1,44 @@
+{% include "base_manager.html.twig" %}
+
+{% block title %}<title>{{'booking.title.add'|trans}}</title>{% endblock %}
+
+{% block body %}
+    <h1>{{'booking.title.add'|trans}}</h1>
+	{% for message in app.flashes('danger') %}
+		<div class="alert alert-danger">
+			{{ message }}
+		</div>
+	{% endfor %}
+    <table>
+        <tbody>
+            <tr>
+                <th>{{'booking.label.price'|trans}}</th>
+                <td>{{ price }} €</td>
+            </tr>
+            <tr>
+                <th>{{'hike.label.max_user'|trans}}</th>
+                <td>{{ hike.maxUsers }}</td>
+            </tr>
+            <tr>
+                <th>{{'hike.label.duration'|trans}}</th>
+                <td>{{ hike.duration ? hike.duration|date('H:i') : '' }}</td>
+            </tr>
+            <tr>
+                <th>{{'hike.label.difficulty'|trans}}</th>
+                <td>{{ hike.effort }}</td>
+            </tr>
+            <tr>
+                <th>{{'hike.label.name'|trans}}</th>
+                <td>{{ hike.name }}</td>
+            </tr>
+            <tr>
+                <th>{{'hike.label.description'|trans}}</th>
+                <td>{{ hike.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ include('front/booking/_form.html.twig') }}
+
+    <a href="{{ path('front_default_index') }}">{{ 'hike.btn.back'|trans }}</a>
+{% endblock %}

@@ -3,7 +3,6 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-
     <section class="zoom">
         <img id="layer1" src="{{ asset('build/images/mountain1.png') }}" alt="picture mountain left">
         <img id="layer2" src="{{ asset('build/images/mountain2.png') }}" alt="picture mountain right">
@@ -22,4 +21,24 @@
         </p>
     </section>
     
+    Page d'accueil
+
+    {# Display all hikes #}
+    {% for hike in hikesWithAvailability %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ hike.hike.name }}</h5>
+                <p class="card-text">{{ hike.hike.description }}</p>
+                <a href="{{ path('front_hike_show', {'slug': hike.hike.slug}) }}" class="btn btn-primary">Voir</a>
+                {% if app.user %}
+                    {% if hike.availablePlaces > 0 %}
+                        <a href="{{ path('front_booking_new', {'slug': hike.hike.slug}) }}" class="btn btn-primary">{{ 'booking.btn.book'|trans }}</a>
+                        <p>Il reste {{ hike.availablePlaces }} places.</p>
+                    {% else %}
+                        <a href="{{ path('front_booking_new', {'slug': hike.hike.slug}) }}" class="btn btn-danger disabled">{{ 'booking.btn.no_available_place'|trans }}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

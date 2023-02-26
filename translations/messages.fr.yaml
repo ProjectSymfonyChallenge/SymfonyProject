@@ -69,3 +69,21 @@ hike:
     image: 'Image'
     no_hike: 'Aucune randonnée'
     no_image: 'Aucune image pour cette randonnée'
+    price: 'Prix :'
+
+booking:
+  title:
+    list: 'Liste des réservations'
+    show: 'Détails de la réservation'
+    add: 'Ajouter une réservation'
+    edit: 'Modifier une réservation'
+  label:
+    hike_date: 'Date de la randonnée :'
+    hike_name: 'Nom de la randonnée :'
+    price: 'Prix :'
+    remaining_place: "Il reste {count} places"
+    already_booked: "Vous avez déjà une réservation pour cette date"
+  btn:
+    hike_show: 'Voir la randonnée'
+    book: 'Réserver'
+    no_available_place: 'Aucune place disponible'

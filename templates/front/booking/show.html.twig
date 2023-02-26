@@ -1,0 +1,25 @@
+{% include "base_front.html.twig" %}
+
+{% block title %}<title>{{'booking.title.show'|trans}}</title>{% endblock %}
+
+{% block body %}
+
+    <table>
+        <tbody>
+            <tr>
+                <th>{{'booking.label.price'|trans}}</th>
+                <td>{{ payment.price }} €</td>
+            </tr>
+            <tr>
+                <th>{{'booking.label.hike_date'|trans}}</th>
+                <td>{{ booking.hikeDate ? booking.hikeDate|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>{{'booking.label.hike_name'|trans}}</th>
+                <td>{{ hike.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('front_hike_show', {'slug': hike.slug}) }}">{{'booking.btn.hike_show'|trans}}</a>
+
+{% endblock %}
