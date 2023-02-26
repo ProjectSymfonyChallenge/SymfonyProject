@@ -37,7 +37,7 @@ class ClubType extends AbstractType
                 ]
             ])
             ->add('manager', TextType::class, [
-                'label' => 'Responsable',
+                'label' => 'Gérant',
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Nom du gérant'
