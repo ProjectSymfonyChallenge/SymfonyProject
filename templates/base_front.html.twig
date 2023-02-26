@@ -9,7 +9,9 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
+        {% if google_maps_api_key is defined and app.user is not null %}
+        <script async defer src="{{ asset('https://maps.googleapis.com/maps/api/js?key=' ~ google_maps_api_key ~ '&callback=initMap') }}"></script>
+        {% endif %}
     </head>
     <body>
 
@@ -63,4 +65,37 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+    {% if app.user is not null %}
+        <script>
+            window.onload = function() {
+                initMap();
+            };
+            function initMap() {
+                var previousInfoWindow = null;
+
+                let map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 46.2276, lng: 2.2137},
+                    zoom: 6,
+                    key: '{{ google_maps_api_key }}'
+                });
+
+                {% for hike in hikes %}
+                new google.maps.Marker({
+                    position: {lat: {{ hike.latitude }}, lng: {{ hike.longitude }}},
+                    map: map,
+
+                }).addListener('click', function() {
+                    if (previousInfoWindow) {
+                        previousInfoWindow.close();
+                    }
+                    let infowindow = new google.maps.InfoWindow({
+                        content: '<div><strong>' + '{{ hike.name }}' + '</strong><br><br>' +  '{{ hike.description }}' + '<br><br>Distance à parcourir : ' + '{{ hike.distance }}' + ' km<br><br>Nombre de Personne max pour une randonné : ' + '{{ hike.maxusers }}' + '</div>'
+                    });
+                    infowindow.open(map, this);
+                    previousInfoWindow = infowindow;
+                });
+                {% endfor %}
+            }
+        </script>
+    {% endif %}
 {% endblock %}

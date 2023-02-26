@@ -20,6 +20,7 @@
         "sendinblue/api-v3-sdk": "^8.4",
         "sensio/framework-extra-bundle": "^6.1",
         "stof/doctrine-extensions-bundle": "^1.7",
+        "stripe/stripe-php": "^10.7",
         "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",
         "symfony/doctrine-messenger": "6.1.*",

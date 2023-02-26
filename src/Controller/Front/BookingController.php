@@ -11,6 +11,9 @@ use App\Repository\HikeRepository;
 use App\Repository\BookingRepository;
 use App\Repository\PaymentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Stripe\Charge;
+use Stripe\Exception\ApiErrorException;
+use Stripe\Stripe;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -83,18 +86,33 @@ class BookingController extends AbstractController
     #[Route('/new/{slug}', name: 'new', methods: ['GET', 'POST'])]
     #[ParamConverter('hike', options: ['mapping' => ['slug' => 'slug']])]
     public function new(Hike $hike, Request $request, HikeRepository $hikeRepository): Response
-    {   
+    {
+        Stripe::setApiKey($_ENV["STRIPE_SECRET_KEY"]);
+
         $booking = new Booking();
 
         $date = $hike->getDuration();
         $hours = $date->getTimestamp() / 3600;
         $price = round($hours * 15);
 
-        $form = $this->createForm(BookingType::class, $booking);
+        $stripe = new \Stripe\StripeClient($_ENV["STRIPE_SECRET_KEY"]);
+        $token = $stripe->tokens->create([
+            'card' => [
+                'number' => '4242424242424242',
+                'exp_month' => 12,
+                'exp_year' => 2025,
+                'cvc' => '123',
+            ],
+        ]);
+
+        $form = $this->createForm(BookingType::class, $booking, [
+        'stripeToken' => $token->id,
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $stripeToken = $form->get('stripeToken')->getData();
             $user = $this->getUser();
             if (!$user->getFirstname() || !$user->getLastname()) {
                 $this->addFlash('warning', $this->translator->trans('booking.label.no_identity'));
@@ -119,6 +137,12 @@ class BookingController extends AbstractController
                 }
             }
 
+            $charge = Charge::create([
+                'amount' => $price * 100, // convert to cents
+                'currency' => 'eur',
+                'source' => $stripeToken,
+                'description' => 'Booking payment',
+            ]);
             $booking->setHike($hike);
             $booking->setUser($this->getUser());
             $booking->setHikeDate($hikeDate);
@@ -133,7 +157,11 @@ class BookingController extends AbstractController
 
             $this->bookingRepository->save($booking, true);
 
-            return $this->redirectToRoute('front_booking_show', ['id' => $booking->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('front_booking_show',
+                [
+                    'id' => $booking->getId(),
+                    'stripe_public_key' => $_ENV["STRIPE_PUBLIC_KEY"],
+                ], Response::HTTP_SEE_OTHER);
 
         }
         

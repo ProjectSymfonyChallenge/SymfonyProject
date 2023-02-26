@@ -3,15 +3,7 @@
   margin-left: auto;
   margin-right: auto;
 }
-
-.card {
-
-  .details {
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-
-  }
-
+.container-hike {
+  max-height: 100vh;
+  overflow-y: scroll;
 }

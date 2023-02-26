@@ -6,6 +6,8 @@ nav:
   profile: 'Profil'
   home: 'Accueil'
 form:
+  message:
+    password: 'Votre mot de passe doit comporter au moins 8 caractères et contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
   title:
     register: 'S''inscrire'
     edit: 'Modifier votre profil'

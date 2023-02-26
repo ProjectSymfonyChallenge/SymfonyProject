@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Booking;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -41,6 +42,13 @@ class BookingType extends AbstractType
             'required' => true,
             'mapped' => false,
             'choices' => $choices,
+        ])
+        ->add('stripeToken', HiddenType::class, [
+            'mapped' => false,
+            'data' => $options['stripeToken'], // get the value of stripeToken option
+            'attr' => [
+                'type' => 'hidden', // make the input hidden
+            ],
         ]);
     
     }
@@ -51,6 +59,7 @@ class BookingType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Booking::class,
+            'stripeToken' => null, // add the stripeToken option with default value null
         ]);
     }
 }

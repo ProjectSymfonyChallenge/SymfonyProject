@@ -43,6 +43,9 @@ class RegisterType extends AbstractType
                     'attr' => [
                         'class' => 'form-control',
                     ],
+
+                  //  'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+                  //  'message' => 'form.message.password',
                 ],
                 'second_options' => [
                     'label' => 'form.label.cpassword',
