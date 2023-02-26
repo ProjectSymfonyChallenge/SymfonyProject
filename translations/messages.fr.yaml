@@ -83,7 +83,10 @@ booking:
     price: 'Prix :'
     remaining_place: "Il reste {count} places"
     already_booked: "Vous avez déjà une réservation pour cette date"
+    no_identity: "Vous devez ajouter votre prénom et nom pour pouvoir réserver"
+    booking_recap: 'Récapitulatif de votre réservation'
   btn:
     hike_show: 'Voir la randonnée'
     book: 'Réserver'
     no_available_place: 'Aucune place disponible'
+    pdf: 'Voir mon récapitulatif'

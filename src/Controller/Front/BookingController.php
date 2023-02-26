@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use Dompdf\Dompdf;
 use App\Entity\Hike;
 use App\Entity\Booking;
 use App\Entity\Payment;
@@ -38,12 +39,45 @@ class BookingController extends AbstractController
         $hike = $booking->getHike();
         $payment = $booking->getPayment();
 
-
         return $this->render('front/booking/show.html.twig', [
             'booking' => $booking,
             'hike' => $hike,
             'payment' => $payment,
         ]);
+    }
+
+    #[Route('/{id}/pdf', name: 'pdf', methods: ['GET'])]
+    public function pdf(Booking $booking): Response
+    {
+        if ($this->getUser() !== $booking->getUser()) {
+            return $this->redirectToRoute('front_default_index');
+        }
+
+        $hike = $booking->getHike();
+        $payment = $booking->getPayment();
+
+        $dompdf = new Dompdf();
+
+        $html = $this->renderView('pdf/booking.html.twig', [
+            'hike' => $hike,
+            'booking' => $booking,
+            'payment' => $payment,
+        ]);
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        $dompdf->render();
+
+        $dompdf->stream("booking.pdf", [
+            "Attachment" => false
+        ]);
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/pdf');
+
+        return $response;
     }
 
     #[Route('/new/{slug}', name: 'new', methods: ['GET', 'POST'])]
@@ -60,6 +94,12 @@ class BookingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $this->getUser();
+            if (!$user->getFirstname() || !$user->getLastname()) {
+                $this->addFlash('warning', $this->translator->trans('booking.label.no_identity'));
+                return $this->redirectToRoute('front_user_show', ['slug' => $user->getSlug()]);
+            }
 
             $hikeDate = $form->get('hike_date')->getData();
             $hikeDate = New \DateTime($hikeDate);

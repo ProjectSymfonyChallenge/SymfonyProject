@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Récapitulatif de la réservation</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h1 {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        h2 {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        p {
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ 'booking.label.booking_recap'|trans }}</h1>
+    <h2>{{ hike.name }}</h2>
+    <p>{{ hike.description }}</p>
+    <p>Date : {{ booking.hikeDate|date('d/m/Y à H:i') }}</p>
+    <p>Prix total : {{ payment.price }} €</p>
+</body>
+</html>
