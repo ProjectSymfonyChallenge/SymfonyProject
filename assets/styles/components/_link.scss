@@ -1,0 +1,56 @@
+a {
+  text-decoration: none !important;
+  border-radius: 4px;
+}
+
+.btn-link {
+  transition: background-color 0.4s ease-in-out;
+
+  &.link-add {
+    padding: 0.5rem;
+    background-color: $opposite-1;
+    color: white;
+
+    &:hover, &:focus {
+      background-color: $opposite-2;
+    }
+  }
+
+  &.link-see {
+    padding: 0.25rem 0.50rem;
+    background-color: $green-1;
+    color: white;
+
+    &:hover, &:focus {
+      background-color: $green-3;
+    }
+  }
+
+  &.link-edit {
+    padding: 0.25rem 0.50rem;
+    background-color: $green-2;
+    color: white;
+
+    &:hover, &:focus {
+      background-color: $green-3;
+    }
+  }
+
+  &.link-info {
+    padding: 0.25rem 0.50rem;
+    background-color: $green-4;
+    color: white !important;
+
+    &:hover, &:focus {
+      background-color: $green-3;
+    }
+  }
+
+  &.link-disabled {
+    padding: 0.25rem 0.50rem !important;
+    background-color: $grey;
+    color: white;
+    cursor: default;
+  }
+
+}

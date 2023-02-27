@@ -2,22 +2,24 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="build/images/peak-experience-favicon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
-
+        {% if google_maps_api_key is defined %}
+        <script async defer src="{{ asset('https://maps.googleapis.com/maps/api/js?key=' ~ google_maps_api_key ~ '&callback=initMap') }}"></script>
+        {% endif %}
     </head>
     <body>
 
 
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ path('front_default_index') }}">
                 <img src="{{ asset('build/images/peak-experience-logo.png') }}" alt="logo" width="150">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,15 +27,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ path('front_default_index') }}">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
-                    </li>
+                    {% if app.user %}
+                        {% include 'front/_embed/navbar.html.twig' %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ path('front_default_index') }}">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('front_default_index') }}#about">{{ 'nav.about' | trans() }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('front_default_index') }}#hikes">Randonnées</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                        </li>
+                    {% endif %}
                     {% if (is_granted('ROLE_ADMIN')) %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('back_default_index') }}">Panel d'admin</a>
@@ -57,4 +69,43 @@
 
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
+    {% if app.request.attributes.get('_route') == 'front_default_index' %}
+        <script>
+            window.onload = function() {
+                initMap();
+            };
+            function initMap() {
+
+                var previousInfoWindow = null;
+
+                let map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: 46.2276, lng: 2.2137},
+                    zoom: 6,
+                    key: '{{ google_maps_api_key }}'
+                });
+
+                {% for hike in hikes %}
+                new google.maps.Marker({
+                    position: {lat: {{ hike.latitude }}, lng: {{ hike.longitude }}},
+                    map: map,
+                    id: {{ hike.id }},
+
+                }).addListener('click', function() {
+                    if (previousInfoWindow) {
+                        previousInfoWindow.close();
+                    }
+                    let infowindow = new google.maps.InfoWindow({
+                        content: '<div><strong>' + '{{ hike.name }}' + '</strong><br><br>' +  '{{ hike.description }}' + '<br><br>Distance à parcourir : ' + '{{ hike.distance }}' + ' km<br><br>Nombre de Personne max pour une randonné : ' + '{{ hike.maxusers }}' + '</div>'
+                    });
+                    infowindow.open(map, this);
+                    previousInfoWindow = infowindow;
+                    var hikeId = this.id;
+                    var hikeElement = document.getElementById(hikeId);
+                    console.log(hikeElement , hikeId)
+                    hikeElement.scrollIntoView({ behavior: 'smooth' });
+                });
+                {% endfor %}
+            }
+        </script>
+    {% endif %}
 {% endblock %}

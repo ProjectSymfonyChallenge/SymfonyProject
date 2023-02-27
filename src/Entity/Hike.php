@@ -65,6 +65,12 @@ class Hike
     #[ORM\ManyToOne(inversedBy: 'hike')]
     private ?Locality $locality = null;
 
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 7)]
+    private $longitude;
+
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 7)]
+    private $latitude;
+
     public function __construct()
     {
         $this->evaluations = new ArrayCollection();
@@ -305,4 +311,41 @@ class Hike
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * @param mixed $longitude
+     */
+    public function setLongitude(float $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * @param mixed $latitude
+     */
+    public function setLatitude(float $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
 }

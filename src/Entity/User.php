@@ -10,10 +10,15 @@ use Gedmo\Mapping\Annotation\Slug;
 use App\Entity\Traits\TimestampableTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use phpDocumentor\Reflection\Types\String_;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Cet email est déjà utilisé.')]
+#[UniqueEntity(fields: ['username'], message: 'Ce nom d\'utilisateur est déjà utilisé.')]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -25,6 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Email(message: 'Email invalide', mode: Assert\Email::VALIDATION_MODE_STRICT)]
+    #[Assert\NotBlank(message: 'Email obligatoire')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -43,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank(message: 'Nom d\'utilisateur obligatoire')]
     private ?string $username = null;
 
     #[ORM\ManyToMany(targetEntity: Badge::class, inversedBy: 'users')]
@@ -61,8 +69,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Level $level = null;
 
-    #[ORM\OneToMany(mappedBy: 'manager', targetEntity: Club::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'manager', targetEntity: Club::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $clubs;
+
+    //memberships
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Membership::class)]
+    private Collection $memberships;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Evaluation::class)]
     private Collection $evaluations;
@@ -91,6 +103,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->pictures = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->memberships = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -221,6 +235,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->badges->removeElement($badge);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Badges>
+     */
+    public function getMemberships(): Collection
+    {
+        return $this->memberships;
+    }
+
+    public function addMembership(Membership $membership): self
+    {
+        if (!$this->memberships->contains($membership)) {
+            $this->memberships->add($membership);
+            $membership->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMembership(Membership $membership): self
+    {
+        if ($this->memberships->removeElement($membership)) {
+            if ($membership->getUser() == $this) {
+                $membership->setUser(null);
+            }
+        }
+
+        return $this;
+
     }
 
     public function isStatus(): ?bool

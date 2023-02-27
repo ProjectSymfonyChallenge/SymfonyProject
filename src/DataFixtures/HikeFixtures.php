@@ -36,6 +36,8 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
                 ->setEffort($faker->randomNumber(1, 5))
                 ->setMaxUsers($faker->randomNumber(1, 20))
                 ->setLocality($localities[array_rand($localities)])
+                ->setLongitude($faker->longitude( -5.1, 9.6))
+                ->setLatitude($faker->latitude( 41.2, 51.1))
                 ->addPicture($picture)
                 ->addPicture($picture2)
                 ->setClub($this->getReference('club'));
@@ -63,6 +65,8 @@ class HikeFixtures extends Fixture implements DependentFixtureInterface
                     ->setEffort($faker->randomNumber(1, 5))
                     ->setMaxUsers($faker->randomNumber(1, 20))
                     ->setLocality($localities[array_rand($localities)])
+                    ->setLongitude($faker->longitude( -5.1, 9.6))
+                    ->setLatitude($faker->latitude( 41.2, 51.1))
                     ->addPicture($picture)
                     ->addPicture($picture2)
                     ->setClub($this->getReference('club' . $j));

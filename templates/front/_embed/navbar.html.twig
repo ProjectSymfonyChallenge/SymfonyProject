@@ -1,0 +1,7 @@
+<li class="nav-item"><a class="nav-link" href="/">{{ 'nav.home' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ path('front_default_index') }}#hikes">Randonnées</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ path('front_booking_index') }}">Mes réservations</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ path('front_user_show', {'slug': app.user.slug}) }}">{{ 'nav.profile' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="#about">{{ 'nav.about' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="#contact">{{ 'nav.contact' | trans() }}</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">{{ 'nav.logout' | trans() }}</a></li>

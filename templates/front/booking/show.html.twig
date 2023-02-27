@@ -1,0 +1,32 @@
+{% include "base_front.html.twig" %}
+
+{% block title %}<title>{{'booking.title.show'|trans}}</title>{% endblock %}
+
+{% block body %}
+    <h1>{{'booking.title.show'|trans}}</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>{{'booking.label.price'|trans}}</th>
+                <td>{{ payment.price }} €</td>
+            </tr>
+            <tr>
+                <th>{{'booking.label.hike_date'|trans}}</th>
+                <td>{{ booking.hikeDate ? booking.hikeDate|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>{{'booking.label.hike_name'|trans}}</th>
+                <td>{{ hike.name }}</td>
+            </tr>
+            <tr>
+                <th>{{ 'booking.label.locality'|trans }}</th>
+                <td>{{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary" target="_blank" href="{{ path('front_booking_pdf', {'id': booking.id}) }}">{{'booking.btn.pdf'|trans}}</a>
+    <a class="btn btn-primary" target="_blank" href="{{ path('front_hike_show', {'slug': hike.slug}) }}">{{'booking.btn.hike_show'|trans}}</a>
+    {{ include('front/booking/_delete_form.html.twig') }}
+
+{% endblock %}

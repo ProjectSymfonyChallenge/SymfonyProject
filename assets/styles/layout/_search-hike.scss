@@ -1,0 +1,42 @@
+#hikes {
+  width: 100% !important;
+  background-color: white;
+  height: 100vh;
+
+  #col-right {
+
+    height: 100vh;
+    overflow-y: scroll;
+    box-shadow: $box-shadow-left;
+
+    .row-search {
+      background-image: $green-gradient;
+    }
+
+    .row-hike {
+      border-bottom: 2px solid $green-1;
+      align-items: center;
+
+      .hike-title {
+        font-size: 1.2rem;
+        background-image: $green-gradient2;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hike-details {
+        color: $grey;
+      }
+    }
+  }
+
+
+  .link-add {
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  .nb-spots {
+    font-size: 0.75rem;
+    color: $grey;
+  }
+}

@@ -121,4 +121,26 @@ class Locality
 
         return $this;
     }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user->add($user);
+            $user->setLocality($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->removeElement($user)) {
+            // set the owning side to null (unless already changed)
+            if ($user->getLocality() === $this) {
+                $user->setLocality(null);
+            }
+        }
+
+        return $this;
+    }
 }

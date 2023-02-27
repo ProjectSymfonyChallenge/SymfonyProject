@@ -1,31 +1,42 @@
 {% extends 'base_front.html.twig' %}
-{% block stylesheets %}
-    {{ encore_entry_link_tags('app') }}
-{% endblock %}
 
-{% block title %}Accueil toto{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
+
  <div class="container">
 		<div class="row">
-			<div class="card">
+			<div class="card card-small mt-5">
                 <div class="card-header">
                     <h1>{{ "form.title.register" | trans() }}</h1>
                 </div>
                 <div class="card-body">
                     {{ form_start(form, {attr:{"id":"form-register", "method":"post" }}) }}
-                        {{ form_row(form._token) }}
+                    {{ form_errors(form) }}
+
+                    {{ form_row(form._token) }}
                         <div class="mb-3 custom-input">
                             {{ form_label(form.email) }}
                             {{ form_widget(form.email) }}
+                            {% if form_errors(form.email) %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.email.vars.errors %}
+                                        {{ error.message }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="mb-3 custom-input">
                             {{ form_label(form.username) }}
                             {{ form_widget(form.username) }}
+                            {{ form_errors(form.username)}}
                         </div>
                         <div class="mb-3 custom-input">
                             {{ form_label(form.password.first) }}
                             {{ form_widget(form.password.first) }}
+                            {% if form.password.first.vars.errors|length > 0 %}
+                                <div class="alert alert-danger">{{ form_errors(form.password.first) }}</div>
+                            {% endif %}
                         </div>
                         <div class="mb-3 custom-input">
                             {{ form_label(form.password.second) }}
@@ -44,12 +55,11 @@
                         </div>
                     {{ form_end(form) }}
                 </div>
-			      </div>
+            </div>
         </div>
     </div>
-    
+
 {% endblock %}
 {% block javascripts %}
-    <script>
-    </script>
+
 {% endblock %}

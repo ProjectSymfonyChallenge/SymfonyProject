@@ -39,12 +39,13 @@ security:
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/validate, roles: PUBLIC_ACCESS }
+        - { path: ^/booking, roles: ROLE_USER }
         - { path: ^/, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
         ROLE_GUIDE: ROLE_USER
         ROLE_GERANT: ROLE_USER
-        ROLE_ADMIN: ROLE_USER
+        ROLE_ADMIN: ROLE_GERANT
 
 when@test:
     security:

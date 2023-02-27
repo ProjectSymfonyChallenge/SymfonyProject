@@ -1,0 +1,143 @@
+{% include "base_front.html.twig" %}
+
+{% block title %}<title>{{'hike.title.show'|trans ~ ' : ' ~ hike.name}}</title>{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid h1-container-mng">
+        <div class="row align-items-center">
+            <div class="col-md-8 col">
+                <h1 class="h1-mng">{{'hike.title.show'|trans}}</h1>
+            </div>
+            <div class="col-md-4 col text-end">
+                <a class="btn-link link-add" href="{{ path('front_default_index') }}#hikes"><i class="bi bi-arrow-left"></i>&nbsp;&nbsp;{{ 'hike.btn.back'|trans }}</a>
+            </div>
+        </div>
+    </div>
+
+    {% if hike.evaluations|length > 0 %}
+        {% set avgEffort = 0 %}
+        {% for evaluation in hike.evaluations %}
+            {% set avgEffort = avgEffort + evaluation.effort %}
+        {% endfor %}
+        {% set avgEffort = avgEffort / hike.evaluations|length %}
+        {% if avgEffort > 0 %}
+            {% set avgEffort = avgEffort ~ " / 10" %}
+        {% endif %}
+        {# Avg beauty #}
+        {% set avgBeauty = 0 %}
+        {% for evaluation in hike.evaluations %}
+            {% set avgBeauty = avgBeauty + evaluation.beauty %}
+        {% endfor %}
+        {% set avgBeauty = avgBeauty / hike.evaluations|length %}
+        {% if avgBeauty > 0 %}
+            {% set avgBeauty = avgBeauty ~ " / 10" %}
+        {% endif %}
+    {% endif %}
+    {# Average duration #}
+    {# If avgDuration equal to 0 #}
+    {% if averageDuration is same as(0) %}
+        {% set averageDuration = 'Pas d\'évaluations' %}
+    {% else %}
+        {% set averageDuration = averageDuration.format('H:i:s') ~ 'h' %}
+    {% endif %}
+
+    {% set assets = hike.pictures %}
+
+    <div class="container-fluid card card-large">
+        <div class="row align-items-center details">
+            <div class="col">
+                {% if assets|length != 0 %}
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for asset in assets %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img class="d-block w-100" src="{{ asset(asset.filename) }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ 'hike.label.no_image'|trans }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+
+                        {% if app.user %}
+                            {% if bookable %}
+                                <a href="{{ path('front_booking_new', {'slug': hike.slug}) }}" class="btn-link link-edit">{{ 'booking.btn.book'|trans }}</a>
+                            {% else %}
+                                <a href="#" class="btn-link link-disabled" onclick="event.preventDefault();">{{ 'booking.btn.no_available_place'|trans }}</a>
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+                </div>
+                <table class="table table-mng table-details">
+                    <tbody>
+                    <tr>
+                        <th>{{ 'hike.label.name'|trans }}</th>
+                        <td>{{ hike.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.description'|trans }}</th>
+                        <td>{{ hike.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ hike.locality.department ~ ' : ' ~ hike.locality.region }}</th>
+                        <td>{{ 'booking.label.locality'|trans }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.distance'|trans }}</th>
+                        <td>{{ hike.distance ~ ' Kms' }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.duration'|trans }}</th>
+                        <td>{{ hike.duration ? hike.duration|date('H:i') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.difficulty'|trans }}</th>
+                        <td>{{ hike.effort }} / 10</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.capacity'|trans }}</th>
+                        <td>{{ hike.maxUsers }} personne(s)</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.average_difficulty'|trans }}</th>
+                        <td>{{ avgEffort|default('Pas d\'évaluations') }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.average_beautiful'|trans }}</th>
+                        <td>{{ avgBeauty|default('Pas d\'évaluations') }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.average_duration'|trans }}</th>
+                        <td>{{ averageDuration|default('Pas d\'évaluations') }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.created_at'|trans }}</th>
+                        <td>{{ hike.createdAt ? hike.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'hike.label.updated_at'|trans }}</th>
+                        <td>{{ hike.updatedAt ? hike.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+            
+
+{% endblock %}

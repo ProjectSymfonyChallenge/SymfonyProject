@@ -1,0 +1,50 @@
+#about {
+
+  .hr1 {
+    border-top: 2px solid $green-1;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .hr2 {
+    border-top: 2px solid $green-2;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .hr3 {
+      border-top: 2px solid $green-3;
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+  }
+
+  .row {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to bottom, $green-2, $green-4);
+    background-color: #fff !important;
+  }
+
+  p {
+    font-size: 1rem !important;
+    text-align: justify;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    &:first-of-type {
+      margin-top: 2rem;
+    }
+
+    &:last-of-type {
+      margin-bottom: 3rem;
+    }
+  }
+
+}
